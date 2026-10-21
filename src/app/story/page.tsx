@@ -246,11 +246,11 @@ export default function StoryPage() {
         <div className="pointer-events-none relative mx-auto w-full max-w-3xl px-4 pt-[max(2.5rem,env(safe-area-inset-top))] pb-40 lg:max-w-[1200px] lg:px-8 lg:pt-20 lg:pb-44">
           {/* 히어로 */}
           <header className="flex flex-col items-center text-center lg:flex-row lg:justify-between lg:gap-16 lg:text-left">
-            <div className="flex flex-col items-center lg:max-w-[560px] lg:items-start">
+            <div className="pointer-events-auto flex flex-col items-center lg:max-w-[560px] lg:items-start">
               {/* 작성자 배지 */}
               <span className="rounded-full bg-white/70 px-3 py-1 text-xs font-bold text-accent-strong">D2-GXG-T5 · Conner</span>
               {/* 스터디 결과 보고서 타이틀 */}
-              <h1 className="mt-5 text-[34px] leading-[1.2] font-black tracking-tight text-stone-900 sm:text-5xl lg:text-6xl">
+              <h1 className="mt-5 text-[34px] leading-[1.2] font-ko font-black tracking-tight text-stone-900 sm:text-5xl lg:text-6xl">
                 MCP · AI 에이전트
                 <br />
                 스터디 <span className="text-accent">결과 보고서</span>
@@ -327,7 +327,7 @@ export default function StoryPage() {
                         </span>
                       )}
                     </div>
-                    <h3 className="mt-2 text-xl font-black tracking-tight text-stone-900">{step.title}</h3>
+                    <h3 className="mt-2 text-xl font-ko font-black tracking-tight text-stone-900">{step.title}</h3>
                     <p className="mt-2 text-[15px] leading-relaxed text-stone-700">{step.body}</p>
                     {step.prompt && (
                       // 터미널 입력처럼: 테두리 박스 안에 고정폭 명령 + 터미널 창의 요청 줄과 같은 글꼴(기본 글꼴 13px)
@@ -420,7 +420,7 @@ export default function StoryPage() {
           {/* 마무리: PC에서는 왼쪽 문구 / 오른쪽 버튼인 가로 배너 */}
           <section className="mt-16 flex flex-col items-center gap-4 text-center lg:mt-28 lg:flex-row lg:justify-between lg:rounded-[32px] lg:bg-white/[0.06] lg:px-12 lg:py-10 lg:text-left lg:ring-1 lg:ring-white/10">
             <div>
-              <p className="text-lg font-black text-white lg:text-3xl lg:tracking-tight">오늘 나는 얼마나 벌었을까?</p>
+              <p className="text-lg font-ko font-black text-white lg:text-3xl lg:tracking-tight">오늘 나는 얼마나 벌었을까?</p>
               <p className="mt-2 hidden text-stone-400 lg:block">연봉만 넣으면 지금 이 순간까지 번 돈만큼 쏟아지는 치킨.</p>
             </div>
             <Link
@@ -440,7 +440,7 @@ export default function StoryPage() {
           <div className="flex items-center gap-1.5">
             {/* 서비스 로고(치킨 닭다리, 파비콘과 같은 이미지)의 흑백 버전 */}
             <img src="/items/chicken.png" alt="" width={42} height={42} className="h-[42px] w-[42px] object-contain grayscale" />
-            <span className="text-[33px] font-black text-neutral-800">오늘 번 돈</span>
+            <span className="text-[28px] font-ko font-black text-neutral-800">오늘 번 돈</span>
           </div>
           <p className="flex flex-wrap items-center justify-center gap-x-2 text-sm font-medium text-neutral-500">
             <span>PTKOREA</span>
@@ -473,7 +473,7 @@ function Section({
     <section className="mt-16 first:mt-0 lg:mt-28 lg:grid lg:grid-cols-[280px_minmax(0,1fr)] lg:gap-16">
       <div className="text-center lg:sticky lg:top-10 lg:self-start lg:text-left">
         <span className={`text-xs font-black tracking-[0.2em] ${dark ? "text-accent-light" : "text-accent"}`}>{eyebrow}</span>
-        <h2 className={`mt-1.5 text-2xl font-black tracking-tight sm:text-3xl lg:leading-snug ${dark ? "text-white" : "text-stone-900"}`}>{title}</h2>
+        <h2 className={`mt-1.5 text-2xl font-ko font-black tracking-tight sm:text-3xl lg:leading-snug ${dark ? "text-white" : "text-stone-900"}`}>{title}</h2>
         <p className={`mt-3 hidden text-[15px] leading-relaxed lg:block ${dark ? "text-stone-400" : "text-stone-700"}`}>{desc}</p>
       </div>
       <div className="mt-6 lg:mt-0">{children}</div>
