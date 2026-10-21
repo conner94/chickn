@@ -38,7 +38,7 @@ export function ItemGrid({ items }: { items: GridItem[] }) {
                 />
               </span>
               {/* 앞 아이콘 몫만큼 오른쪽 여백을 줘서 이름이 위 이미지와 가운데로 맞아 보이게 */}
-              <span className="relative flex items-center justify-center gap-1.5 pt-2 pr-3 pb-4">
+              <span className="relative flex items-center justify-center gap-1.5 pt-2 pr-2 pb-4">
                 <img src={`/items/${id}.png`} alt="" width={20} height={20} className="h-5 w-5 object-contain" />
                 <span className="text-sm font-bold text-stone-800">{name}</span>
               </span>
