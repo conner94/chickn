@@ -262,9 +262,9 @@ export default function StoryPage() {
               <div className="pointer-events-auto mt-6 flex w-full max-w-sm flex-col gap-2 sm:flex-row lg:mt-8">
                 <Link
                   href="/"
-                  className="flex items-center gap-2 sm:flex-[1.4] justify-center rounded-2xl bg-stone-900 py-3.5 text-[15px] font-bold text-white shadow-md transition hover:bg-stone-800 active:scale-[0.97]"
+                  className="flex items-center gap-1 sm:flex-[1.4] justify-center rounded-2xl bg-stone-900 py-3.5 text-[15px] font-bold text-white shadow-md transition hover:bg-stone-800 active:scale-[0.97]"
                 >
-                  <img src="/items/chicken.png" alt="" width={18} height={18} className="h-[18px] w-[18px] object-contain" />
+                  <img src="/items/chicken.png" alt="" width={22} height={22} className="h-[22px] w-[22px] object-contain" />
                   서비스 써보기
                 </Link>
                 <a
@@ -425,9 +425,9 @@ export default function StoryPage() {
             </div>
             <Link
               href="/"
-              className="flex w-full max-w-sm items-center gap-2 justify-center rounded-full bg-accent py-4 text-[15px] font-bold text-white shadow-md transition hover:bg-accent-strong active:scale-[0.97] lg:w-72 lg:shrink-0"
+              className="flex w-full max-w-sm items-center gap-1 justify-center rounded-full bg-accent py-4 text-[15px] font-bold text-white shadow-md transition hover:bg-accent-strong active:scale-[0.97] lg:w-72 lg:shrink-0"
             >
-              <img src="/items/chicken.png" alt="" width={18} height={18} className="h-[18px] w-[18px] object-contain" />
+              <img src="/items/chicken.png" alt="" width={22} height={22} className="h-[22px] w-[22px] object-contain" />
               지금 확인하러 가기
             </Link>
           </section>
@@ -438,8 +438,8 @@ export default function StoryPage() {
       <footer className="bg-[#edeeef] pb-[max(2rem,env(safe-area-inset-bottom))]">
         <div className="mx-auto flex w-full max-w-3xl flex-col items-center gap-4 px-4 py-10 text-center lg:max-w-[1200px] lg:flex-row lg:justify-between lg:px-8 lg:text-left">
           <div className="flex items-center gap-2.5">
-            {/* 서비스 로고(코인, app/icon.png와 같은 이미지)의 흑백 버전 */}
-            <img src="/brand/logo.png" alt="" width={28} height={28} className="h-7 w-7 object-contain grayscale" />
+            {/* 서비스 로고(치킨 닭다리, 파비콘과 같은 이미지)의 흑백 버전 */}
+            <img src="/items/chicken.png" alt="" width={28} height={28} className="h-7 w-7 object-contain grayscale" />
             <span className="text-[15px] font-black text-neutral-800">오늘 번 돈</span>
           </div>
           <p className="flex flex-wrap items-center justify-center gap-x-2 text-sm font-medium text-neutral-500">
