@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+@theme {
+  /* 포인트 색: 크림 배경에 어울리는 따뜻한 코랄 */
+  --color-accent: #ff6b4a;
+  --color-accent-strong: #ef4f2f;
+  --color-accent-soft: #fff0ea;
+  --color-accent-light: #ffb48a;
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Apple SD Gothic Neo", "Pretendard", "Noto Sans KR", sans-serif;
+}
+
+html,
+body {
+  /* 모바일에서 화면 전체가 튕기며 스크롤되지 않게 (한 화면 앱) */
+  overscroll-behavior: none;
+}
+
+body {
+  color: #1c1917;
+  background-color: #fdf6ec;
+  /* 위쪽은 따뜻하게 밝고, 아래로 갈수록 살짝 진해지는 부드러운 배경 */
+  background-image:
+    radial-gradient(120% 60% at 50% 0%, #fffaf2 0%, rgba(255, 250, 242, 0) 70%),
+    linear-gradient(180deg, #fdf6ec 0%, #f8ead6 100%);
+  background-attachment: fixed;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  /* 더블탭 확대 방지 + 손가락 반응 빠르게 */
+  touch-action: manipulation;
+  cursor: pointer;
+}
+
+/*
+ * iOS Safari: 시간·날짜 입력칸이 자체 모양과 최소 너비를 강제해서 2열 그리드에서 칸을 넘어 서로 겹친다.
+ * 기본 모양을 끄고 칸 너비에 맞춰 줄어들게 한다.
+ */
+input[type="time"],
+input[type="date"] {
+  -webkit-appearance: none;
+  appearance: none;
+  display: block;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+input[type="time"]::-webkit-date-and-time-value,
+input[type="date"]::-webkit-date-and-time-value {
+  text-align: left;
+  min-width: 0;
+}
