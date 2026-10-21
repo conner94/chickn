@@ -11,14 +11,9 @@ const description = "피그마 없이 PRD.md 한 장과 AI 에이전트와의 �
 export const metadata: Metadata = {
   title,
   description,
-  // 하위 페이지에서 openGraph/twitter를 다시 정의하면 루트의 OG 이미지가 빠지므로 서비스와 같은 이미지를 직접 지정
-  openGraph: {
-    title,
-    description,
-    url: "/story",
-    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "오늘 번 돈 — 치킨·피자·떡볶이가 하늘에서 쏟아지는 그림" }],
-  },
-  twitter: { card: "summary_large_image", title, description, images: ["/twitter-image"] },
+  // 이미지는 같은 폴더의 opengraph-image.tsx / twitter-image.tsx가 붙인다 (서비스와 같은 그림)
+  openGraph: { title, description, url: "/story" },
+  twitter: { card: "summary_large_image", title, description },
 };
 
 const WORKFLOW = [
