@@ -40,8 +40,8 @@ const STEPS: Step[] = [
     title: "터미널에서 Claude Code, GitHub·Vercel 연결",
     body: "터미널에서 Claude Code를 실행해 프로젝트를 시작하고, GitHub 저장소와 Vercel을 연결. 이후 main에 푸시할 때마다 같은 주소로 자동 배포.",
     prompt: [
-      "GitHub 저장소를 만들고 Vercel 프로젝트에 연결해줘.",
-      "main에 푸시하면 같은 주소로 자동 배포되게 해줘.",
+      "GitHub 원격 저장소를 생성하고 main 브랜치를 Vercel 프로젝트에 연결해줘.",
+      "main 푸시 시 프로덕션 자동 배포(CI/CD)가 돌도록 설정하고, 같은 도메인을 유지해줘.",
     ],
     flow: ["터미널", "claude 실행", "GitHub 저장소", "Vercel 연결", "push = 자동 배포"],
     terminal: [
@@ -59,9 +59,9 @@ const STEPS: Step[] = [
     title: "유리 상자 속에 각진 치킨",
     body: "기획서대로 나온 첫 화면. 계산 로직은 단위 테스트로 먼저 고정하고, 3D는 유리 상자 안에 로우폴리 치킨이 떨어지는 형태.",
     prompt: [
-      "연봉을 입력하면 오늘 번 돈을 초 단위로 실시간 계산해줘.",
-      "번 금액만큼 치킨·콜라·커피 3D 오브젝트가 물리 효과로 떨어져 쌓이게 해줘.",
-      "외부 API·DB·로그인 없이 브라우저에서만 동작하게. 운영 비용은 0원으로.",
+      "연봉 기반 실근무 시간(점심 제외) 시급을 계산해, 오늘 번 금액을 1초 단위로 갱신해줘. 계산 로직은 순수 함수로 분리하고 단위 테스트를 붙여줘.",
+      "누적 금액을 아이템 단가로 환산해 3D 오브젝트가 물리 엔진(Rapier)으로 낙하·적재되게 해줘.",
+      "외부 API·DB·인증 없이 클라이언트 단에서만 동작하고, 입력값은 localStorage에만 저장. 운영 비용 0원.",
     ],
     shots: [{ src: "/story/01-draft-glassbox.jpg", alt: "유리 상자 안에 각진 치킨이 놓인 첫 화면", phone: true }],
   },
@@ -70,8 +70,8 @@ const STEPS: Step[] = [
     title: "아이템 17종 + 흘러가는 카드",
     body: "아이템을 17종으로 늘리고, 저절로 흘러가는 마키 캐러셀과 소소·한 끼·소확행 카테고리 칩을 추가.",
     prompt: [
-      "아이템을 17종으로 늘리고 가격순으로 정리해줘.",
-      "카드가 가로로 천천히 흐르는 무한 캐러셀로 만들고, 만지면 멈추고 누르면 선택되게 해줘.",
+      "아이템 데이터를 단일 상수로 관리하고 17종으로 확장, 가격 오름차순 정렬해줘.",
+      "rAF 기반 무한 루프 마키 캐러셀로 구현해줘. 사용자 인터랙션 시 자동 흐름을 일시정지하고, 탭하면 선택 + 중앙 정렬.",
     ],
     shots: [{ src: "/story/02-marquee-17.jpg", alt: "카테고리 칩과 마키 카드가 추가된 화면", phone: true }],
   },
@@ -80,9 +80,9 @@ const STEPS: Step[] = [
     title: "상자를 없애고 화면 전체를 무대로",
     body: "써 보니 답답했던 상자를 제거. 카테고리 탭을 없애고, 카드를 금액 바로 아래로 크게 올리고, 오브젝트가 화면 아래에 그대로 쌓이는 구조로 변경.",
     prompt: [
-      "카테고리 탭 없이 모든 아이템을 한 줄로 보여줘.",
-      "카드는 금액과 진행 바 바로 아래에 크게 배치해줘.",
-      "상자 없이 투명한 화면 위로 떨어져 아래쪽에 자연스럽게 쌓이게 해줘.",
+      "카테고리 탭을 제거하고 전체 아이템을 단일 리스트로 노출해줘.",
+      "카드 영역을 금액·진행 바 바로 아래로 올리고 크기를 키워 정보 위계를 재정리해줘.",
+      "컨테이너 박스를 없애고 투명 캔버스 + 화면 경계 콜라이더로 바꿔, 오브젝트가 뷰포트 하단에 자연스럽게 쌓이게 해줘.",
     ],
     shots: [
       { src: "/story/02-marquee-17.jpg", alt: "구조 수정 전 화면", caption: "Before", phone: true },
@@ -94,8 +94,8 @@ const STEPS: Step[] = [
     title: "남은 시간과 알맞은 단위",
     body: "“다음 아이템까지 남은 돈” 대신 남은 시간을 표시하고, 커피는 잔·김밥은 줄·떡볶이는 그릇처럼 단위를 정리.",
     prompt: [
-      "‘다음 아이템까지’는 남은 금액 말고 남은 시간(분·초)으로 보여줘.",
-      "단위는 아이템에 맞춰줘. 커피는 잔, 김밥은 줄, 떡볶이는 그릇.",
+      "‘다음 획득까지’ 지표를 잔여 금액 대신 잔여 시간(분·초)으로 바꿔줘.",
+      "수량 단위를 아이템별로 정의해줘(잔·줄·그릇 등).",
     ],
     shots: [{ src: "/story/04-polish.jpg", alt: "남은 시간과 단위가 바뀐 화면", phone: true }],
   },
@@ -104,9 +104,9 @@ const STEPS: Step[] = [
     title: "각진 모델에서 윤기 나는 장난감으로",
     body: "환경맵 조명, 부드러운 그림자, 클리어코트 재질로 플라스틱 장난감 같은 질감 표현. 후보 조명 여러 개를 찍어 비교한 뒤 선택.",
     prompt: [
-      "환경맵, 부드러운 그림자, 은은한 빛 번짐으로 씬 완성도를 올려줘.",
-      "재질은 윤기 있는 장난감 느낌, 색은 파스텔 톤 팔레트로 통일해줘.",
-      "유료 서비스는 쓰지 말고, 기존 물리·성능 구조는 그대로 유지해줘.",
+      "HDRI 환경맵, ContactShadows, 키·필 라이트 구성으로 씬 라이팅을 재설계해줘.",
+      "MeshPhysicalMaterial 클리어코트로 토이 질감을 내고, 컬러는 파스텔 팔레트 토큰으로 통일해줘.",
+      "데스크톱에서만 SSAO·Bloom 후처리를 켜고, 기존 물리·성능 구조는 유지해줘.",
     ],
     shots: [{ src: "/story/05-toy-material.jpg", alt: "윤기 있는 치킨과 각진 콜라 비교" }],
   },
@@ -115,8 +115,8 @@ const STEPS: Step[] = [
     title: "이모지를 직접 만든 썸네일로",
     body: "아이템 이미지를 직접 준비해 교체하고, 이미지가 없는 아이템은 제외해 10종으로 정리. 카드는 이미지가 잘 보이도록 유리 질감으로 재구성.",
     prompt: [
-      "이모지 대신 내가 준비한 썸네일 이미지를 써줘. 이미지가 없는 아이템은 빼고.",
-      "이미지가 잘 보이도록 카드 디자인을 다시 정리해줘.",
+      "이모지를 직접 준비한 썸네일 에셋으로 교체하고, 에셋이 없는 아이템은 데이터에서 제외해줘.",
+      "썸네일 가독성을 기준으로 카드 컴포넌트를 글래스 스타일로 재설계해줘.",
     ],
     shots: [{ src: "/story/06-thumb-cards.jpg", alt: "썸네일 이미지 카드로 바뀐 화면", phone: true }],
   },
@@ -125,8 +125,8 @@ const STEPS: Step[] = [
     title: "썸네일과 나란히 놓고 3D 맞추기",
     body: "개발용 비교 페이지에 왼쪽은 썸네일, 오른쪽은 3D를 배치. 매끈한 덩어리였던 치킨에 튀김옷 돌기를 올려 원본에 가깝게 조정.",
     prompt: [
-      "썸네일과 최대한 같은 형태·색감·재질로 3D 모델을 만들어줘.",
-      "치킨부터 하나씩 진행하고, 리소스는 적당한 선에서 써줘.",
+      "썸네일 레퍼런스와 형태·색감·재질을 맞춰 3D 모델을 리모델링해줘.",
+      "원본과 3D를 나란히 비교하는 개발용 프리뷰 페이지를 만들고, 치킨부터 아이템 단위로 반복 개선. 폴리곤·토큰 사용량은 적정 수준으로.",
     ],
     shots: [
       { src: "/story/07-chicken-before.jpg", alt: "썸네일과 매끈한 3D 치킨 비교", caption: "1차" },
@@ -138,9 +138,9 @@ const STEPS: Step[] = [
     title: "입력 시트, 확인 다이얼로그, 공유 이미지",
     body: "월급 입력 시트에 “서버로 보내지 않음” 안내를 추가하고, 저장 버튼과 나가기 확인 창을 정리. 공유용 OG 이미지는 아이템이 하늘에서 떨어지는 장면으로.",
     prompt: [
-      "입력값은 서버에 저장되지 않는다는 안내를 입력칸 바로 아래에 넣어줘.",
-      "저장 버튼은 하단에 꽉 찬 캡슐형으로, 수정 후 닫으면 확인 창을 띄워줘.",
-      "공유 이미지는 글자 없이 아이템이 하늘에서 떨어지는 장면으로 만들어줘.",
+      "입력 필드 하단에 ‘서버 미전송’ 프라이버시 안내 문구를 추가해줘.",
+      "저장 CTA를 하단 풀폭 캡슐형으로 바꾸고, 변경 사항이 있을 때 닫으면 이탈 확인 다이얼로그를 띄워줘.",
+      "OG 이미지는 텍스트 없이 아이템이 낙하하는 키 비주얼로 생성해줘.",
     ],
     shots: [
       { src: "/story/14-live-sheet.jpg", alt: "월급 입력 바텀시트", caption: "입력 시트", phone: true },
@@ -248,7 +248,7 @@ export default function StoryPage() {
           <Section eyebrow="HOW" title="작업 방식" desc="화면을 그리는 대신 문장으로 설명하고, 결과를 보고 다시 말로 고치는 흐름을 반복.">
             <ol className="grid gap-2 sm:grid-cols-2 lg:gap-3">
               {WORKFLOW.map((w, i) => (
-                <li key={w.title} className="flex gap-3 rounded-3xl bg-white/80 p-5 shadow-sm ring-1 ring-stone-900/5 lg:p-6">
+                <li key={w.title} className="flex gap-3 rounded-[28px] bg-white/45 p-5 shadow-[0_4px_14px_-6px_rgba(60,40,20,0.16)] ring-1 ring-white/80 backdrop-blur-xl lg:p-6">
                   <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-accent text-sm font-black text-white">
                     {i + 1}
                   </span>
@@ -271,24 +271,23 @@ export default function StoryPage() {
                   key={i}
                   className="relative pb-14 pl-10 last:pb-0 lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-start lg:gap-10 lg:pb-20"
                 >
-                  <span
-                    className="absolute top-1 left-0 flex h-6 w-6 items-center justify-center rounded-full bg-white ring-4 ring-[#fffaf4]"
-                    aria-hidden="true"
-                  >
-                    <span className="h-2.5 w-2.5 rounded-full bg-accent" />
-                  </span>
+                  {/* 작은 오렌지 점: 제목(배지 아래 첫 줄) 높이의 가운데 */}
+                  <span className="absolute top-[37px] left-[7px] h-2.5 w-2.5 rounded-full bg-accent ring-4 ring-[#fffaf4]" aria-hidden="true" />
                   {/* PC에서는 글이 스크롤 동안 따라오도록 sticky */}
                   <div className="lg:sticky lg:top-10">
                     <span className="inline-block rounded-full bg-accent-soft px-2.5 py-0.5 text-xs font-bold text-accent-strong">{step.tag}</span>
                     <h3 className="mt-2 text-xl font-black tracking-tight text-stone-900">{step.title}</h3>
                     <p className="mt-2 text-[15px] leading-relaxed text-stone-600">{step.body}</p>
                     {step.prompt && (
-                      <div className="mt-4 rounded-2xl rounded-tl-md bg-stone-900 px-4 py-3.5 text-sm leading-relaxed text-stone-100">
-                        <span className="mb-1.5 block text-[11px] font-bold tracking-wide text-accent-light">요청사항</span>
-                        <ul className="space-y-1">
+                      // 말풍선 대신 터미널 입력처럼: 고정폭 플래그 + 왼쪽 프롬프트 선
+                      <div className="mt-4 border-l-2 border-accent/40 pl-4">
+                        <span className="font-mono text-xs font-semibold text-accent">
+                          <span className="text-stone-400">$ claude</span> --request
+                        </span>
+                        <ul className="mt-2 space-y-1.5 text-sm leading-relaxed text-stone-700">
                           {step.prompt.map((line) => (
                             <li key={line} className="flex gap-2">
-                              <span className="text-accent-light" aria-hidden="true">·</span>
+                              <span className="font-mono text-stone-400" aria-hidden="true">&gt;</span>
                               <span>{line}</span>
                             </li>
                           ))}
@@ -355,7 +354,7 @@ export default function StoryPage() {
       </div>
 
       {/* 밴드 3: 정리 (어두운 배경) */}
-      <div className="bg-stone-900 pb-[max(3rem,env(safe-area-inset-bottom))]">
+      <div className="bg-stone-900">
         <div className="mx-auto w-full max-w-3xl px-4 lg:max-w-[1200px] lg:px-8 py-16 lg:py-28">
           {/* 배운 것 */}
           <Section dark eyebrow="LEARNED" title="해 보고 알게 된 것" desc="처음 AI 에이전트와 서비스를 만들며 얻은 작업 요령.">
@@ -381,21 +380,38 @@ export default function StoryPage() {
           </Section>
 
           {/* 마무리: PC에서는 왼쪽 문구 / 오른쪽 버튼인 가로 배너 */}
-          {/* 인트로와 같은 라테 샌드 배경의 유리 카드 + 인트로와 같은 검정 버튼 */}
-          <footer className="mt-16 flex flex-col items-center gap-5 rounded-[32px] bg-[radial-gradient(120%_120%_at_30%_0%,#f7eadb_0%,#efdcc5_100%)] px-6 py-8 text-center shadow-[0_12px_40px_-16px_rgba(0,0,0,0.5)] ring-1 ring-white/40 backdrop-blur-xl lg:mt-28 lg:flex-row lg:justify-between lg:px-12 lg:py-10 lg:text-left">
+          <section className="mt-16 flex flex-col items-center gap-4 text-center lg:mt-28 lg:flex-row lg:justify-between lg:rounded-[32px] lg:bg-white/[0.06] lg:px-12 lg:py-10 lg:text-left lg:ring-1 lg:ring-white/10">
             <div>
-              <p className="text-xl font-black text-stone-900 lg:text-3xl lg:tracking-tight">오늘 나는 얼마나 벌었을까?</p>
-              <p className="mt-2 text-sm text-stone-600 lg:text-base">연봉만 넣으면 지금 이 순간까지 번 돈만큼 쏟아지는 치킨.</p>
+              <p className="text-lg font-black text-white lg:text-3xl lg:tracking-tight">오늘 나는 얼마나 벌었을까?</p>
+              <p className="mt-2 hidden text-stone-400 lg:block">연봉만 넣으면 지금 이 순간까지 번 돈만큼 쏟아지는 치킨.</p>
             </div>
             <Link
               href="/"
-              className="flex w-full max-w-sm items-center justify-center rounded-full bg-stone-900 py-4 text-[15px] font-bold text-white shadow-md transition hover:bg-stone-800 active:scale-[0.97] lg:w-72 lg:shrink-0"
+              className="flex w-full max-w-sm items-center justify-center rounded-full bg-accent py-4 text-[15px] font-bold text-white shadow-md transition hover:bg-accent-strong active:scale-[0.97] lg:w-72 lg:shrink-0"
             >
               지금 확인하러 가기
             </Link>
-          </footer>
+          </section>
         </div>
       </div>
+
+      {/* 푸터 */}
+      <footer className="bg-stone-200/70 pb-[max(2rem,env(safe-area-inset-bottom))]">
+        <div className="mx-auto flex w-full max-w-3xl flex-col items-center gap-4 px-4 py-10 text-center lg:max-w-[1200px] lg:flex-row lg:justify-between lg:px-8 lg:text-left">
+          <div className="flex items-center gap-2.5">
+            {/* 서비스 파비콘(app/icon.svg)의 흑백 버전 */}
+            <img src="/icon.svg" alt="" width={28} height={28} className="h-7 w-7 grayscale" />
+            <span className="text-[15px] font-black text-stone-800">오늘 번 돈</span>
+          </div>
+          <p className="flex flex-wrap items-center justify-center gap-x-2 text-sm font-medium text-stone-500">
+            <span>PTKOREA</span>
+            <span className="text-stone-300" aria-hidden="true">|</span>
+            <span>D2-GXG-T5</span>
+            <span className="text-stone-300" aria-hidden="true">|</span>
+            <span>Conner</span>
+          </p>
+        </div>
+      </footer>
     </main>
   );
 }
