@@ -1,6 +1,24 @@
 "use client";
 
+import { useRef } from "react";
+import { useRouter } from "next/navigation";
 import { WorkPhase, formatWon } from "@/lib/earnings";
+
+/** 이스터에그: "오늘 번 돈" 글자를 이 시간 안에 3번 누르면 만든 과정(/story)으로 이동 */
+const SECRET_TAPS = 3;
+const SECRET_WINDOW_MS = 800;
+
+function useSecretTaps(onUnlock: () => void) {
+  const taps = useRef<number[]>([]);
+  return () => {
+    const now = Date.now();
+    taps.current = [...taps.current.filter((t) => now - t < SECRET_WINDOW_MS), now];
+    if (taps.current.length >= SECRET_TAPS) {
+      taps.current = [];
+      onUnlock();
+    }
+  };
+}
 
 const PHASE: Record<WorkPhase, { label: string; className: string }> = {
   before: { label: "출근 전", className: "bg-stone-200/80 text-stone-600" },
@@ -19,10 +37,15 @@ interface Props {
 
 export function EarningsDisplay({ earned, phase, progress, workStart, workEnd }: Props) {
   const percent = Math.min(100, Math.max(0, progress * 100));
+  const router = useRouter();
+  const onSecretTap = useSecretTaps(() => router.push("/story"));
   return (
     <section className="flex flex-col items-center text-center">
       <div className="flex items-center gap-2">
-        <p className="text-sm font-semibold text-stone-500">오늘 번 돈</p>
+        {/* 티 안 나게: 커서·선택·탭 강조 없이 클릭만 받는다 */}
+        <p onClick={onSecretTap} className="pointer-events-auto cursor-default text-sm font-semibold text-stone-500 select-none">
+          오늘 번 돈
+        </p>
         {phase && (
           <span className={`flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-bold ${PHASE[phase].className}`}>
             {phase === "working" && (
