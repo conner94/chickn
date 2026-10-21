@@ -171,9 +171,10 @@ const LEARNINGS = [
 
 const STACK = ["Claude Code", "Next.js", "TypeScript", "Tailwind CSS", "three.js · React Three Fiber", "Rapier 물리 엔진", "GitHub", "Vercel"];
 
-function ShotImage({ shot }: { shot: Shot }) {
+/** className을 주면 기본 너비(폰 260px / 가로 이미지 100%) 대신 그 크기로 */
+function ShotImage({ shot, className }: { shot: Shot; className?: string }) {
   return (
-    <figure className={shot.phone ? "w-full max-w-[260px]" : "w-full"}>
+    <figure className={className ?? (shot.phone ? "mx-auto w-full max-w-[260px]" : "w-full")}>
       <a href={shot.src} target="_blank" rel="noreferrer" className="block">
         <img
           src={shot.src}
@@ -230,8 +231,8 @@ export default function StoryPage() {
                 </a>
               </div>
             </div>
-            <div className="mt-10 w-full max-w-[300px] lg:mt-0 lg:shrink-0">
-              <ShotImage shot={{ src: "/story/13-live-falling.jpg", alt: "치킨 여러 마리가 떨어져 쌓이는 완성 화면", phone: true }} />
+            <div className="mx-auto mt-10 w-full max-w-[340px] lg:mx-0 lg:mt-0 lg:w-[380px] lg:max-w-none lg:shrink-0">
+              <ShotImage className="w-full" shot={{ src: "/story/13-live-falling.jpg", alt: "치킨이 떨어져 쌓이는 완성 화면", phone: true }} />
             </div>
           </header>
         </div>
