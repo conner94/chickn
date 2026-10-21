@@ -443,7 +443,7 @@ export default function StoryPage() {
       </div>
 
       {/* 푸터 */}
-      <footer className="bg-[#f3f4f5] pb-[max(2rem,env(safe-area-inset-bottom))]">
+      <footer className="bg-[#edeeef] pb-[max(2rem,env(safe-area-inset-bottom))]">
         <div className="mx-auto flex w-full max-w-3xl flex-col items-center gap-4 px-4 py-10 text-center lg:max-w-[1200px] lg:flex-row lg:justify-between lg:px-8 lg:text-left">
           <div className="flex items-center gap-2.5">
             {/* 서비스 로고(코인, app/icon.png와 같은 이미지)의 흑백 버전 */}
