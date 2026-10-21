@@ -270,8 +270,8 @@ export default function StoryPage() {
                 </a>
               </div>
             </div>
-            <div data-intro-mockup className="pointer-events-auto mx-auto mt-10 w-full max-w-[340px] lg:mx-0 lg:mt-0 lg:w-[380px] lg:max-w-none lg:shrink-0">
-              <ShotImage className="w-full" shot={{ src: "/story/13-live-falling.jpg", alt: "치킨이 떨어져 쌓이는 완성 화면", phone: true }} />
+            <div data-intro-mockup className="pointer-events-auto mx-auto mt-10 w-full max-w-[340px] lg:mx-0 lg:mt-0 lg:w-[360px] lg:max-w-none lg:shrink-0">
+              <ShotImage className="w-full" shot={{ src: "/story/13-live-falling.jpg", alt: "치킨이 바닥에 쌓인 완성 화면", phone: true }} />
             </div>
           </header>
         </div>
