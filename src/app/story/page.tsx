@@ -12,13 +12,6 @@ export const metadata: Metadata = {
   twitter: { title, description },
 };
 
-const STATS = [
-  { value: "0", unit: "개", label: "사용한 디자인 툴" },
-  { value: "10", unit: "종", label: "직접 다듬은 3D 아이템" },
-  { value: "2", unit: "일", label: "실제 작업한 날" },
-  { value: "0", unit: "원", label: "서버·운영 비용" },
-];
-
 const WORKFLOW = [
   { title: "터미널의 Claude Code", body: "디자인 툴 대신 터미널에서 Claude Code를 실행하고, 대화로 코드 작성부터 배포까지 진행." },
   { title: "글로 쓴 기획서", body: "화면을 그리는 대신 기능·계산식·기술 스택을 문서로 정리해 전달." },
@@ -241,20 +234,6 @@ export default function StoryPage() {
               <ShotImage shot={{ src: "/story/13-live.jpg", alt: "완성된 오늘 번 돈 화면", phone: true }} />
             </div>
           </header>
-
-          {/* 숫자 */}
-          <section className="mt-12 grid grid-cols-2 gap-2 sm:grid-cols-4 lg:mt-20 lg:gap-3">
-            {STATS.map((s) => (
-              // 흰 버튼과 겹치지 않게 배경과 같은 샌드 톤 카드
-              <div key={s.label} className="rounded-3xl bg-[#e9d3b8]/55 px-3 py-5 text-center ring-1 ring-[#d9bf9f]/40">
-                <div className="text-3xl font-black text-stone-900 tabular-nums">
-                  {s.value}
-                  <span className="ml-0.5 text-base font-bold text-stone-500">{s.unit}</span>
-                </div>
-                <div className="mt-1 text-xs font-medium text-stone-600">{s.label}</div>
-              </div>
-            ))}
-          </section>
         </div>
       </div>
 
