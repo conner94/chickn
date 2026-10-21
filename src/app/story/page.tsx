@@ -4,7 +4,7 @@ import { IntroBackdrop } from "./IntroBackdrop";
 
 // 이 프로젝트를 만든 과정을 소개하는 정적 페이지 (/story). 스크린샷은 public/story/ 에 있다.
 const title = "만든 과정 · 오늘 번 돈";
-const description = "피그마 없이 AI 에이전트와 대화만으로 기획서 한 장에서 배포까지 간 첫 MCP 스터디 기록.";
+const description = "피그마 없이 PRD.md 한 장과 AI 에이전트와의 대화만으로 배포까지 간 첫 MCP 스터디 기록.";
 
 export const metadata: Metadata = {
   title,
@@ -14,8 +14,8 @@ export const metadata: Metadata = {
 };
 
 const WORKFLOW = [
-  { title: "터미널의 Claude Code", body: "디자인 툴 대신 터미널에서 Claude Code를 실행하고, 대화로 코드 작성부터 배포까지 진행." },
-  { title: "글로 쓴 기획서", body: "화면을 그리는 대신 기능·계산식·기술 스택을 문서로 정리해 전달." },
+  { title: "터미널의 Claude Code", body: "디자인 툴 대신 터미널에서 Claude Code를 실행하고, PRD를 읽혀 코드 작성부터 배포까지 진행." },
+  { title: "PRD.md로 시작", body: "화면을 그리는 대신 기능·계산식·기술 스택·진행 단계를 PRD.md에 정리하고, 바뀐 결정은 버전을 올려 다시 반영." },
   { title: "단계마다 멈추고 확인", body: "4단계로 나눠 단계마다 직접 확인. 에이전트도 헤드리스 크롬으로 화면을 찍어 스스로 점검." },
   { title: "말로 고치기", body: "“카드를 더 크게”, “두 배로 키워줘”처럼 대화로 디자인을 다듬음." },
 ]
@@ -31,23 +31,50 @@ type Step = {
   flow?: string[];
   /** 스크린샷 대신 보여줄 터미널 화면. "$ "로 시작하면 명령, 그 외는 출력 */
   terminal?: string[];
+  /** 이 단계에서 반영된 PRD 버전 */
+  prd?: string;
+  /** 스크린샷 대신 보여줄 PRD.md 문서 미리보기 (마크다운 줄) */
+  doc?: string[];
   shots: Shot[];
 };
 
 const STEPS: Step[] = [
   {
+    tag: "기획",
+    title: "PRD.md 한 장으로 시작",
+    body: "피그마 시안 대신 마크다운 PRD를 먼저 작성. 목표·제약, 기술 스택, 기능 요구사항, 계산식, 4단계 진행 계획까지 한 문서에 담아 에이전트의 단일 기준으로 사용.",
+    prd: "v1.0",
+    doc: [
+      "# 오늘 번 돈 — PRD",
+      "> 연봉을 입력하면 오늘 번 돈을 초 단위로 계산하고, 그만큼 3D 오브젝트가 떨어져 쌓인다.",
+      "## 1. 목표와 제약",
+      "- 외부 API·DB·로그인 없이 브라우저에서만 동작",
+      "- 운영 비용 0원 (GitHub + Vercel Hobby)",
+      "## 3.2 계산 로직",
+      "- 시급 = 월급 ÷ (하루 실근무시간 × 21.7일)",
+      "- 오늘 번 돈 = 실근무 경과 시간(점심 제외) × 시급",
+      "## 4. 진행 방식",
+      "1. 세팅 + 계산 로직 + 입력 폼 (3D 없이)",
+      "2. 3D 씬 + 치킨 물리 낙하",
+      "3. 아이템 추가 · 상호작용 · 성능 상한",
+      "4. 디자인 · README · Vercel 배포",
+    ],
+    shots: [],
+  },
+  {
     tag: "세팅",
     title: "터미널에서 Claude Code, GitHub·Vercel 연결",
-    body: "터미널에서 Claude Code를 실행해 프로젝트를 시작하고, GitHub 저장소와 Vercel을 연결. 이후 main에 푸시할 때마다 같은 주소로 자동 배포.",
+    body: "터미널에서 Claude Code를 실행해 PRD.md를 읽히고 1단계부터 진행. GitHub 저장소와 Vercel을 연결해 main에 푸시할 때마다 같은 주소로 자동 배포.",
     prompt: [
+      "PRD.md를 읽고 4. 진행 방식의 1단계부터 시작해줘. 단계마다 멈추고 build 통과 여부와 변경 파일을 요약해줘.",
       "GitHub 원격 저장소를 생성하고 main 브랜치를 Vercel 프로젝트에 연결해줘.",
       "main 푸시 시 프로덕션 자동 배포(CI/CD)가 돌도록 설정하고, 같은 도메인을 유지해줘.",
     ],
-    flow: ["터미널", "claude 실행", "GitHub 저장소", "Vercel 연결", "push = 자동 배포"],
+    flow: ["PRD.md", "claude 실행", "GitHub 저장소", "Vercel 연결", "push = 자동 배포"],
     terminal: [
       "$ cd ~/Desktop/Project/261008_Chickn",
       "$ claude",
-      "> 연봉을 입력하면 오늘 번 돈을 초 단위로 계산해줘…",
+      "> PRD.md 읽고 1단계부터 진행해줘",
       "✓ 22 tests passed · build ok",
       "$ git push",
       "✓ Vercel  Deployment has completed",
@@ -57,7 +84,7 @@ const STEPS: Step[] = [
   {
     tag: "초안",
     title: "유리 상자 속에 각진 치킨",
-    body: "기획서대로 나온 첫 화면. 계산 로직은 단위 테스트로 먼저 고정하고, 3D는 유리 상자 안에 로우폴리 치킨이 떨어지는 형태.",
+    body: "PRD v1.0대로 나온 첫 화면. 계산 로직은 단위 테스트로 먼저 고정하고, 3D는 유리 상자 안에 로우폴리 치킨이 떨어지는 형태.",
     prompt: [
       "연봉 기반 실근무 시간(점심 제외) 시급을 계산해, 오늘 번 금액을 1초 단위로 갱신해줘. 계산 로직은 순수 함수로 분리하고 단위 테스트를 붙여줘.",
       "누적 금액을 아이템 단가로 환산해 3D 오브젝트가 물리 엔진(Rapier)으로 낙하·적재되게 해줘.",
@@ -68,6 +95,7 @@ const STEPS: Step[] = [
   {
     tag: "기능 확장",
     title: "아이템 17종 + 흘러가는 카드",
+    prd: "v1.1",
     body: "아이템을 17종으로 늘리고, 저절로 흘러가는 마키 캐러셀과 소소·한 끼·소확행 카테고리 칩을 추가.",
     prompt: [
       "아이템 데이터를 단일 상수로 관리하고 17종으로 확장, 가격 오름차순 정렬해줘.",
@@ -78,8 +106,10 @@ const STEPS: Step[] = [
   {
     tag: "UI 구조 수정",
     title: "상자를 없애고 화면 전체를 무대로",
-    body: "써 보니 답답했던 상자를 제거. 카테고리 탭을 없애고, 카드를 금액 바로 아래로 크게 올리고, 오브젝트가 화면 아래에 그대로 쌓이는 구조로 변경.",
+    prd: "v1.2",
+    body: "써 보니 답답했던 상자를 제거하기로 하고 PRD를 v1.2로 수정. 카테고리 탭을 없애고, 카드를 금액 바로 아래로 크게 올리고, 오브젝트가 화면 아래에 그대로 쌓이는 구조로 변경.",
     prompt: [
+      "PRD 3.4·3.5를 아래 결정대로 수정하고(v1.2), 수정한 PRD 기준으로 구현해줘.",
       "카테고리 탭을 제거하고 전체 아이템을 단일 리스트로 노출해줘.",
       "카드 영역을 금액·진행 바 바로 아래로 올리고 크기를 키워 정보 위계를 재정리해줘.",
       "컨테이너 박스를 없애고 투명 캔버스 + 화면 경계 콜라이더로 바꿔, 오브젝트가 뷰포트 하단에 자연스럽게 쌓이게 해줘.",
@@ -92,6 +122,7 @@ const STEPS: Step[] = [
   {
     tag: "디테일",
     title: "남은 시간과 알맞은 단위",
+    prd: "v1.2",
     body: "“다음 아이템까지 남은 돈” 대신 남은 시간을 표시하고, 커피는 잔·김밥은 줄·떡볶이는 그릇처럼 단위를 정리.",
     prompt: [
       "‘다음 획득까지’ 지표를 잔여 금액 대신 잔여 시간(분·초)으로 바꿔줘.",
@@ -102,6 +133,7 @@ const STEPS: Step[] = [
   {
     tag: "폴리곤 업데이트 ①",
     title: "각진 모델에서 윤기 나는 장난감으로",
+    prd: "v1.3",
     body: "환경맵 조명, 부드러운 그림자, 클리어코트 재질로 플라스틱 장난감 같은 질감 표현. 후보 조명 여러 개를 찍어 비교한 뒤 선택.",
     prompt: [
       "HDRI 환경맵, ContactShadows, 키·필 라이트 구성으로 씬 라이팅을 재설계해줘.",
@@ -113,8 +145,10 @@ const STEPS: Step[] = [
   {
     tag: "UI 구조 수정",
     title: "이모지를 직접 만든 썸네일로",
+    prd: "v1.3",
     body: "아이템 이미지를 직접 준비해 교체하고, 이미지가 없는 아이템은 제외해 10종으로 정리. 카드는 이미지가 잘 보이도록 유리 질감으로 재구성.",
     prompt: [
+      "PRD 3.3 아이템 구성을 썸네일이 있는 10종으로 갱신해줘(v1.3).",
       "이모지를 직접 준비한 썸네일 에셋으로 교체하고, 에셋이 없는 아이템은 데이터에서 제외해줘.",
       "썸네일 가독성을 기준으로 카드 컴포넌트를 글래스 스타일로 재설계해줘.",
     ],
@@ -136,6 +170,7 @@ const STEPS: Step[] = [
   {
     tag: "마무리",
     title: "입력 시트, 확인 다이얼로그, 공유 이미지",
+    prd: "v1.4",
     body: "월급 입력 시트에 “서버로 보내지 않음” 안내를 추가하고, 저장 버튼과 나가기 확인 창을 정리. 공유용 OG 이미지는 아이템이 하늘에서 떨어지는 장면으로.",
     prompt: [
       "입력 필드 하단에 ‘서버 미전송’ 프라이버시 안내 문구를 추가해줘.",
@@ -165,13 +200,13 @@ const ITEMS: [string, string, number][] = [
 ];
 
 const LEARNINGS = [
-  { title: "피그마 대신 말로 쓰는 명세", body: "레이아웃을 그리지 않아도 “어디에, 얼마나 크게, 왜”를 문장으로 적으면 화면이 나옴. 오히려 의도를 더 명확히 쓰게 됨." },
+  { title: "피그마 대신 PRD.md", body: "레이아웃을 그리지 않아도 “어디에, 얼마나 크게, 왜”를 문서로 적으면 화면이 나옴. 결정이 바뀌면 PRD부터 고치니 에이전트와 기준이 어긋나지 않음." },
   { title: "작게 자르고 자주 멈추기", body: "한 번에 다 맡기지 않고 단계·아이템 하나씩 요청하니 결과 확인과 방향 수정이 쉬워짐." },
   { title: "비교할 수 있게 만들기", body: "원본 썸네일과 3D를 나란히 보는 페이지 하나로 “비슷하게 해줘”가 구체적인 피드백이 됨." },
   { title: "범위와 비용 정하기", body: "“토큰 너무 많이 쓰지 말고 적당히”처럼 얼마나 공들일지도 함께 전달하는 것이 중요." },
 ];
 
-const STACK = ["Claude Code", "Next.js", "TypeScript", "Tailwind CSS", "three.js · React Three Fiber", "Rapier 물리 엔진", "GitHub", "Vercel"];
+const STACK = ["PRD.md (Markdown)", "Claude Code", "Next.js", "TypeScript", "Tailwind CSS", "three.js · React Three Fiber", "Rapier 물리 엔진", "GitHub", "Vercel"];
 
 /** className을 주면 기본 너비(폰 260px / 가로 이미지 100%) 대신 그 크기로 */
 function ShotImage({ shot, className }: { shot: Shot; className?: string }) {
@@ -215,7 +250,7 @@ export default function StoryPage() {
               </h1>
               <p className="mt-4 max-w-md text-[15px] leading-relaxed text-stone-600 lg:mt-6 lg:max-w-none lg:text-lg">
                 연봉을 넣으면 지금 이 순간 번 돈만큼 치킨·피자·떡볶이가 쏟아지는 웹서비스. 디자인 툴 없이 터미널에서 Claude Code(AI 코딩 에이전트)와
-                대화만으로 기획서 한 장에서 배포까지 간 과정 정리.
+                PRD.md 한 장과 대화만으로 배포까지 간 과정 정리.
               </p>
               <div className="pointer-events-auto mt-6 flex w-full max-w-sm gap-2 lg:mt-8">
                 <Link
@@ -263,7 +298,7 @@ export default function StoryPage() {
           </Section>
 
           {/* 타임라인 */}
-          <Section eyebrow="PROCESS" title="초안에서 완성까지" desc="초안을 띄워 놓고 직접 써 보면서 구조와 3D를 한 단계씩 수정.">
+          <Section eyebrow="PROCESS" title="초안에서 완성까지" desc="PRD.md로 시작해 초안을 써 보고, 결정이 바뀔 때마다 PRD 버전을 올리며 구조와 3D를 한 단계씩 수정.">
             <ol className="relative">
               {/* 세로 선 */}
               <span className="absolute top-2 bottom-2 left-[11px] w-0.5 rounded-full bg-accent-light/50" aria-hidden="true" />
@@ -276,7 +311,14 @@ export default function StoryPage() {
                   <span className="absolute top-[5px] left-[7px] h-2.5 w-2.5 rounded-full bg-accent ring-4 ring-[#fffaf4]" aria-hidden="true" />
                   {/* PC에서는 글이 스크롤 동안 따라오도록 sticky */}
                   <div className="lg:sticky lg:top-10">
-                    <span className="inline-block rounded-full bg-accent-soft px-2.5 py-0.5 text-xs font-bold text-accent-strong">{step.tag}</span>
+                    <div className="flex items-center gap-1.5">
+                      <span className="inline-block rounded-full bg-accent-soft px-2.5 py-0.5 text-xs font-bold text-accent-strong">{step.tag}</span>
+                      {step.prd && (
+                        <span className="inline-block rounded-full px-2 py-0.5 font-mono text-[11px] font-semibold text-stone-500 ring-1 ring-stone-300">
+                          PRD {step.prd}
+                        </span>
+                      )}
+                    </div>
                     <h3 className="mt-2 text-xl font-black tracking-tight text-stone-900">{step.title}</h3>
                     <p className="mt-2 text-[15px] leading-relaxed text-stone-600">{step.body}</p>
                     {step.prompt && (
@@ -308,6 +350,7 @@ export default function StoryPage() {
                     )}
                   </div>
                   <div className="mt-5 flex flex-col gap-4 lg:mt-0">
+                    {step.doc && <MarkdownFile name="PRD.md" lines={step.doc} />}
                     {step.terminal && <Terminal lines={step.terminal} />}
                     {/* 폰 화면은 나란히, 가로로 긴 이미지는 그 아래로 */}
                     {step.shots.some((s) => s.phone) && (
@@ -400,18 +443,18 @@ export default function StoryPage() {
       </div>
 
       {/* 푸터 */}
-      <footer className="bg-stone-200/70 pb-[max(2rem,env(safe-area-inset-bottom))]">
+      <footer className="bg-[#f3f4f5] pb-[max(2rem,env(safe-area-inset-bottom))]">
         <div className="mx-auto flex w-full max-w-3xl flex-col items-center gap-4 px-4 py-10 text-center lg:max-w-[1200px] lg:flex-row lg:justify-between lg:px-8 lg:text-left">
           <div className="flex items-center gap-2.5">
             {/* 서비스 파비콘(app/icon.svg)의 흑백 버전 */}
             <img src="/icon.svg" alt="" width={28} height={28} className="h-7 w-7 grayscale" />
-            <span className="text-[15px] font-black text-stone-800">오늘 번 돈</span>
+            <span className="text-[15px] font-black text-neutral-800">오늘 번 돈</span>
           </div>
-          <p className="flex flex-wrap items-center justify-center gap-x-2 text-sm font-medium text-stone-500">
+          <p className="flex flex-wrap items-center justify-center gap-x-2 text-sm font-medium text-neutral-500">
             <span>PTKOREA</span>
-            <span className="text-stone-300" aria-hidden="true">|</span>
+            <span className="text-neutral-300" aria-hidden="true">|</span>
             <span>D2-GXG-T5</span>
-            <span className="text-stone-300" aria-hidden="true">|</span>
+            <span className="text-neutral-300" aria-hidden="true">|</span>
             <span>Conner</span>
           </p>
         </div>
@@ -482,5 +525,39 @@ function GitHubMark({ className }: { className?: string }) {
     <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" className={className}>
       <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" />
     </svg>
+  );
+}
+
+/** 에디터에서 연 마크다운 파일 모양. "#"는 제목, ">"는 인용, "-"·숫자는 목록 */
+function MarkdownFile({ name, lines }: { name: string; lines: string[] }) {
+  return (
+    <div className="overflow-hidden rounded-2xl bg-white/70 shadow-[0_12px_32px_-12px_rgba(120,72,30,0.28)] ring-1 ring-stone-900/5 backdrop-blur-xl">
+      <div className="flex items-center gap-2 border-b border-stone-900/5 px-4 py-3">
+        <span className="rounded-md bg-stone-900/5 px-2 py-0.5 font-mono text-xs font-semibold text-stone-700">{name}</span>
+        <span className="text-xs text-stone-400">Markdown</span>
+      </div>
+      <div className="space-y-1 px-5 py-4 font-mono text-[13px] leading-6">
+        {lines.map((line) =>
+          line.startsWith("# ") ? (
+            <p key={line} className="text-base font-bold text-stone-900">
+              <span className="text-accent">#</span> {line.slice(2)}
+            </p>
+          ) : line.startsWith("## ") ? (
+            <p key={line} className="pt-2 font-bold text-stone-800">
+              <span className="text-accent">##</span> {line.slice(3)}
+            </p>
+          ) : line.startsWith("> ") ? (
+            <p key={line} className="border-l-2 border-stone-300 pl-3 font-sans text-stone-500">
+              {line.slice(2)}
+            </p>
+          ) : (
+            <p key={line} className="font-sans text-stone-600">
+              <span className="font-mono text-stone-400">{line.match(/^(\d+\.|-)/)?.[0]}</span>
+              {line.replace(/^(\d+\.|-)/, "")}
+            </p>
+          ),
+        )}
+      </div>
+    </div>
   );
 }
