@@ -15,8 +15,11 @@ export function ItemGrid({ items }: { items: GridItem[] }) {
   const [bursts, setBursts] = useState<Partial<Record<ItemId, number>>>({});
   const rain = (id: ItemId) => setBursts((b) => ({ ...b, [id]: (b[id] ?? 0) + 1 }));
 
+  const hint = "*이미지를 눌러보세요";
   return (
     <>
+      {/* 모바일: 섹션 제목 바로 아래 / PC: 그리드 아래 */}
+      <p className="-mt-3 mb-4 text-center text-xs text-stone-400 lg:hidden">{hint}</p>
       <ul className="grid grid-cols-2 gap-2 sm:grid-cols-5 lg:gap-3">
         {items.map(([id, name, width]) => (
           // 서비스 아이템 카드와 같은 유리 카드: 반투명 흰 바탕 + 블러 + 이미지 뒤 은은한 색 번짐
@@ -46,6 +49,7 @@ export function ItemGrid({ items }: { items: GridItem[] }) {
           </li>
         ))}
       </ul>
+      <p className="mt-4 hidden text-center text-xs text-stone-400 lg:block">{hint}</p>
       {Object.keys(bursts).length > 0 && <RainCanvas bursts={bursts} />}
     </>
   );

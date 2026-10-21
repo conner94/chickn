@@ -385,7 +385,7 @@ export default function StoryPage() {
           </Section>
 
           {/* 10종 3D */}
-          <Section eyebrow="RESULT" title="하나씩 다듬은 3D 아이템 10종" desc="썸네일 이미지를 옆에 두고 형태·색감·재질을 하나씩 맞춘 결과. 카드를 누르면 쏟아짐.">
+          <Section eyebrow="RESULT" title="하나씩 다듬은 3D 아이템 10종" desc="썸네일 이미지를 옆에 두고 형태·색감·재질을 하나씩 맞춘 결과.">
             <ItemGrid items={ITEMS} />
           </Section>
 
