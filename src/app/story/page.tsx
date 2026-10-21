@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { IntroBackdrop } from "./IntroBackdrop";
 
 // 이 프로젝트를 만든 과정을 소개하는 정적 페이지 (/story). 스크린샷은 public/story/ 에 있다.
 const title = "만든 과정 · 오늘 번 돈";
@@ -196,8 +197,10 @@ export default function StoryPage() {
   return (
     <main className="w-full break-keep">
       {/* 밴드 1: 인트로 (라테 샌드) */}
-      <div className="bg-[radial-gradient(120%_80%_at_50%_0%,#f7eadb_0%,#efdcc5_100%)]">
-        <div className="mx-auto w-full max-w-3xl px-4 lg:max-w-[1200px] lg:px-8 pt-[max(2.5rem,env(safe-area-inset-top))] pb-16 lg:pt-20 lg:pb-28">
+      <div className="relative overflow-hidden bg-[radial-gradient(120%_80%_at_50%_0%,#f7eadb_0%,#efdcc5_100%)]">
+        {/* 배경 3D: 아이템이 쏟아져 아래쪽 빈 공간에 쌓인다 */}
+        <IntroBackdrop />
+        <div className="relative mx-auto w-full max-w-3xl px-4 pt-[max(2.5rem,env(safe-area-inset-top))] pb-40 lg:max-w-[1200px] lg:px-8 lg:pt-20 lg:pb-44">
           {/* 히어로 */}
           <header className="flex flex-col items-center text-center lg:flex-row lg:justify-between lg:gap-16 lg:text-left">
             <div className="flex flex-col items-center lg:max-w-[560px] lg:items-start">
