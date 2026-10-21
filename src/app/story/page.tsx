@@ -231,7 +231,7 @@ export default function StoryPage() {
               </div>
             </div>
             <div className="mt-10 w-full max-w-[300px] lg:mt-0 lg:shrink-0">
-              <ShotImage shot={{ src: "/story/13-live.jpg", alt: "완성된 오늘 번 돈 화면", phone: true }} />
+              <ShotImage shot={{ src: "/story/13-live-falling.jpg", alt: "치킨 여러 마리가 떨어져 쌓이는 완성 화면", phone: true }} />
             </div>
           </header>
         </div>
