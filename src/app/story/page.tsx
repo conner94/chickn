@@ -218,17 +218,17 @@ const STACK = ["PRD.md (Markdown)", "Claude Code", "Next.js", "TypeScript", "Tai
 /** className을 주면 기본 너비(폰 260px / 가로 이미지 100%) 대신 그 크기로 */
 function ShotImage({ shot, className }: { shot: Shot; className?: string }) {
   return (
-    <figure className={className ?? (shot.phone ? "mx-auto w-full max-w-[260px]" : "w-full")}>
-      <a href={shot.src} target="_blank" rel="noreferrer" className="block">
-        <img
-          src={shot.src}
-          alt={shot.alt}
-          loading="lazy"
-          className={`w-full bg-white shadow-[0_12px_32px_-12px_rgba(120,72,30,0.28)] ring-1 ring-stone-900/5 ${
-            shot.phone ? "rounded-[28px]" : "rounded-2xl"
-          }`}
-        />
-      </a>
+    <figure className={`pointer-events-none select-none ${className ?? (shot.phone ? "mx-auto w-full max-w-[260px]" : "w-full")}`}>
+      {/* 스크린샷은 보기만: 클릭·드래그·길게 눌러 저장 막음 */}
+      <img
+        src={shot.src}
+        alt={shot.alt}
+        loading="lazy"
+        draggable={false}
+        className={`w-full bg-white shadow-[0_12px_32px_-12px_rgba(120,72,30,0.28)] ring-1 ring-stone-900/5 ${
+          shot.phone ? "rounded-[28px]" : "rounded-2xl"
+        }`}
+      />
       {shot.caption && (
         <figcaption className="mt-2.5 text-center text-xs font-bold text-stone-500">{shot.caption}</figcaption>
       )}
@@ -247,9 +247,12 @@ export default function StoryPage() {
           {/* 히어로 */}
           <header className="flex flex-col items-center text-center lg:flex-row lg:justify-between lg:gap-16 lg:text-left">
             <div className="flex flex-col items-center lg:max-w-[560px] lg:items-start">
-              <span className="rounded-full bg-white/70 px-3 py-1 text-xs font-bold text-accent-strong">
-                MCP · AI 에이전트 스터디
-              </span>
+              <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 lg:justify-start">
+                <span className="rounded-full bg-white/70 px-3 py-1 text-xs font-bold text-accent-strong">MCP · AI 에이전트 스터디</span>
+                <span className="text-xs font-medium text-stone-500">
+                  PTKOREA · D2-GXG-T5 · <span className="font-bold text-stone-800">Conner</span>
+                </span>
+              </div>
               <h1 className="mt-5 text-[34px] leading-[1.2] font-black tracking-tight text-stone-900 sm:text-5xl lg:text-6xl">
                 피그마 없이,
                 <br />
@@ -278,7 +281,7 @@ export default function StoryPage() {
                 </a>
               </div>
             </div>
-            <div data-intro-mockup className="pointer-events-auto mx-auto mt-10 w-full max-w-[340px] lg:mx-0 lg:mt-0 lg:w-[360px] lg:max-w-none lg:shrink-0">
+            <div data-intro-mockup className="mx-auto mt-10 w-full max-w-[340px] lg:mx-0 lg:mt-0 lg:w-[360px] lg:max-w-none lg:shrink-0">
               <ShotImage className="w-full" shot={{ src: "/story/13-live-falling.jpg", alt: "치킨이 바닥에 쌓인 완성 화면", phone: true }} />
             </div>
           </header>
