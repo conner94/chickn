@@ -1,9 +1,9 @@
 "use client";
 
-import { Suspense, useEffect, useMemo, useState } from "react";
-import { Canvas, useThree } from "@react-three/fiber";
+import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Canvas, ThreeEvent, useFrame, useThree } from "@react-three/fiber";
 import { ContactShadows } from "@react-three/drei";
-import { Physics } from "@react-three/rapier";
+import { Physics, useRapier } from "@react-three/rapier";
 import * as THREE from "three";
 import { ItemId } from "@/constants/items";
 import { PALETTE } from "@/constants/palette";
@@ -13,7 +13,7 @@ import { Bounds, StageBounds } from "@/components/scene/StageBounds";
 
 /** 인트로 배경에 쏟아지는 아이템 구성 */
 const MIX: Record<ItemId, number> = {
-  pizza: 1,
+  pizza: 2,
   icecream: 4,
   samgak: 4,
   coffee: 4,
@@ -46,9 +46,10 @@ const HALF_DEPTH = 2.5;
 /**
  * 인트로 영역 크기에 맞춘 카메라 거리와 물리 경계.
  * 서비스(폰 화면에 약 84px = 1유닛)와 비슷한 크기로 보이게, 화면 높이로 카메라 거리를 정한다.
+ * floorInsetPx: 영역 맨 아래에서 바닥선까지 거리(px).
  * 좁은 화면은 조금 더 멀리 — 아이템이 작아지고 덜 빽빽하게 쌓인다.
  */
-function useStage(): Bounds {
+function useStage(floorInsetPx: number): Bounds {
   const { width, height } = useThree((s) => s.size);
   const camera = useThree((s) => s.camera);
   const tanV = Math.tan(THREE.MathUtils.degToRad(FOV / 2));
@@ -62,12 +63,64 @@ function useStage(): Bounds {
     const halfH = (cameraZ - HALF_DEPTH) * tanV;
     const halfW = halfH * (width / Math.max(height, 1));
     const round = (v: number) => Math.round(v * 100) / 100;
-    return { floorY: round(-halfH), halfWidth: round(Math.max(halfW - 0.15, 1)), halfDepth: HALF_DEPTH, topY: round(cameraZ * tanV) };
-  }, [cameraZ, tanV, width, height]);
+    return { floorY: round(-halfH + (Math.min(floorInsetPx, height * 0.8) / Math.max(height, 1)) * 2 * halfH), halfWidth: round(Math.max(halfW - 0.15, 1)), halfDepth: HALF_DEPTH, topY: round(cameraZ * tanV) };
+  }, [cameraZ, tanV, width, height, floorInsetPx]);
 }
 
-function Scene() {
-  const bounds = useStage();
+/** 반경 안의 아이템이 받는 최대 힘(질량 1 기준)과 반경(유닛) */
+const HIT_FORCE = 9;
+const HIT_RADIUS = 3;
+
+/**
+ * 오브젝트에 마우스를 올리면 클릭 가능한 커서로, 누르면(터치 포함) 그 지점을 중심으로 주변 아이템을 튕겨 낸다.
+ * 가까울수록 세게, 바깥쪽 + 위쪽으로.
+ */
+function Hittable({ children }: { children: React.ReactNode }) {
+  const { world } = useRapier();
+  const gl = useThree((s) => s.gl);
+  const groupRef = useRef<THREE.Group>(null);
+  // InstancedMesh는 처음 계산한 경계 구로 레이캐스트를 걸러서, 움직인 아이템이 안 잡힌다. 매 프레임 다시 계산하게 비운다.
+  useFrame(() => {
+    groupRef.current?.traverse((o) => {
+      if (o instanceof THREE.InstancedMesh) o.boundingSphere = null;
+    });
+  });
+  const setCursor = (c: string) => (gl.domElement.style.cursor = c);
+  const hit = useCallback(
+    (e: ThreeEvent<PointerEvent>) => {
+      e.stopPropagation();
+      const p = e.point;
+      world.forEachRigidBody((body) => {
+        if (!body.isDynamic()) return;
+        const t = body.translation();
+        const dx = t.x - p.x, dy = t.y - p.y, dz = t.z - p.z;
+        const dist = Math.hypot(dx, dy, dz);
+        if (dist > HIT_RADIUS) return;
+        const f = (1 - dist / HIT_RADIUS) * HIT_FORCE * body.mass();
+        const len = Math.max(dist, 0.3);
+        body.applyImpulse({ x: (dx / len) * f, y: f * 0.9 + Math.max(dy, 0), z: (dz / len) * f * 0.5 }, true);
+        body.setAngvel({ x: (Math.random() - 0.5) * 10, y: (Math.random() - 0.5) * 10, z: (Math.random() - 0.5) * 10 }, true);
+      });
+    },
+    [world],
+  );
+  return (
+    <group
+      ref={groupRef}
+      onPointerDown={hit}
+      onPointerOver={(e) => {
+        e.stopPropagation();
+        setCursor("pointer");
+      }}
+      onPointerOut={() => setCursor("")}
+    >
+      {children}
+    </group>
+  );
+}
+
+function Scene({ floorInsetPx }: { floorInsetPx: number }) {
+  const bounds = useStage(floorInsetPx);
   const order = useMemo(shuffledOrder, []);
   // 지금까지 떨어뜨린 개수 → 종류별 개수로 나눠 각 더미에 넘긴다
   const [dropped, setDropped] = useState(0);
@@ -97,27 +150,30 @@ function Scene() {
       <Suspense fallback={null}>
         <Physics gravity={[0, -9.81, 0]}>
           <StageBounds bounds={bounds} />
-          {(Object.keys(MIX) as ItemId[]).map((id) => (
-            // 서비스와 같은 더미 컴포넌트를 종류마다 하나씩 (인스턴싱 + 물리)
-            // ItemPile은 count를 다시 100ms 간격으로 따라가므로 여기서 이미 순서대로 늘려 준다
-            <ItemPile key={id} itemId={id} count={counts[id] ?? 0} visible onHidden={noop} shakeSignal={0} bounds={bounds} />
-          ))}
+          <Hittable>
+            {(Object.keys(MIX) as ItemId[]).map((id) => (
+              // 서비스와 같은 더미 컴포넌트를 종류마다 하나씩 (인스턴싱 + 물리)
+              // ItemPile은 count를 다시 100ms 간격으로 따라가므로 여기서 이미 순서대로 늘려 준다
+              <ItemPile key={id} itemId={id} count={counts[id] ?? 0} visible onHidden={noop} shakeSignal={0} bounds={bounds} />
+            ))}
+          </Hittable>
         </Physics>
       </Suspense>
     </>
   );
 }
 
-/** /story 인트로 배경: 서비스처럼 10종 아이템이 위에서 쏟아져 바닥에 쌓인다. 클릭은 아래 콘텐츠로 통과 */
-export default function IntroDrop() {
+/** /story 인트로 배경: 서비스처럼 10종 아이템이 위에서 쏟아져 바닥에 쌓이고, 누르면 튕겨 나간다 */
+export default function IntroDrop({ floorInsetPx }: { floorInsetPx: number }) {
   return (
     <Canvas
       dpr={[1, 2]}
       gl={{ alpha: true, toneMapping: THREE.NeutralToneMapping, toneMappingExposure: 1.2 }}
       camera={{ position: [0, 0, 16], fov: FOV }}
-      style={{ pointerEvents: "none" }}
+      // 모바일에서 배경을 쓸어도 페이지 세로 스크롤은 되도록
+      style={{ touchAction: "pan-y" }}
     >
-      <Scene />
+      <Scene floorInsetPx={floorInsetPx} />
     </Canvas>
   );
 }

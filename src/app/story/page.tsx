@@ -200,7 +200,7 @@ export default function StoryPage() {
       <div className="relative overflow-hidden bg-[radial-gradient(120%_80%_at_50%_0%,#f7eadb_0%,#efdcc5_100%)]">
         {/* 배경 3D: 아이템이 쏟아져 아래쪽 빈 공간에 쌓인다 */}
         <IntroBackdrop />
-        <div className="relative mx-auto w-full max-w-3xl px-4 pt-[max(2.5rem,env(safe-area-inset-top))] pb-40 lg:max-w-[1200px] lg:px-8 lg:pt-20 lg:pb-44">
+        <div className="pointer-events-none relative mx-auto w-full max-w-3xl px-4 pt-[max(2.5rem,env(safe-area-inset-top))] pb-40 lg:max-w-[1200px] lg:px-8 lg:pt-20 lg:pb-44">
           {/* 히어로 */}
           <header className="flex flex-col items-center text-center lg:flex-row lg:justify-between lg:gap-16 lg:text-left">
             <div className="flex flex-col items-center lg:max-w-[560px] lg:items-start">
@@ -216,7 +216,7 @@ export default function StoryPage() {
                 연봉을 넣으면 지금 이 순간 번 돈만큼 치킨·피자·떡볶이가 쏟아지는 웹서비스. 디자인 툴 없이 터미널에서 Claude Code(AI 코딩 에이전트)와
                 대화만으로 기획서 한 장에서 배포까지 간 과정 정리.
               </p>
-              <div className="mt-6 flex w-full max-w-sm gap-2 lg:mt-8">
+              <div className="pointer-events-auto mt-6 flex w-full max-w-sm gap-2 lg:mt-8">
                 <Link
                   href="/"
                   className="flex flex-[1.4] items-center justify-center rounded-2xl bg-stone-900 py-3.5 text-[15px] font-bold text-white shadow-md transition hover:bg-stone-800 active:scale-[0.97]"
@@ -234,7 +234,7 @@ export default function StoryPage() {
                 </a>
               </div>
             </div>
-            <div className="mx-auto mt-10 w-full max-w-[340px] lg:mx-0 lg:mt-0 lg:w-[380px] lg:max-w-none lg:shrink-0">
+            <div data-intro-mockup className="pointer-events-auto mx-auto mt-10 w-full max-w-[340px] lg:mx-0 lg:mt-0 lg:w-[380px] lg:max-w-none lg:shrink-0">
               <ShotImage className="w-full" shot={{ src: "/story/13-live-falling.jpg", alt: "치킨이 떨어져 쌓이는 완성 화면", phone: true }} />
             </div>
           </header>
