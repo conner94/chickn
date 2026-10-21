@@ -7,7 +7,7 @@ import dynamic from "next/dynamic";
 const IntroDrop = dynamic(() => import("./IntroDrop"), { ssr: false });
 
 /**
- * 인트로 배경 3D. 바닥선은 영역 맨 아래와 폰 목업 아래 끝([data-intro-mockup])의 중간.
+ * 인트로 배경 3D. 바닥선은 영역 맨 아래에서 폰 목업 아래 끝([data-intro-mockup])까지의 1/4 높이.
  * 크기가 바뀌면 다시 잰다.
  */
 export function IntroBackdrop() {
@@ -22,7 +22,7 @@ export function IntroBackdrop() {
       const mockup = band.querySelector("[data-intro-mockup]");
       const bottom = box.getBoundingClientRect().bottom;
       const mockupBottom = mockup?.getBoundingClientRect().bottom ?? bottom;
-      setInset(Math.max(0, Math.round((bottom - mockupBottom) / 2)));
+      setInset(Math.max(0, Math.round((bottom - mockupBottom) / 4)));
     };
     measure();
     const ro = new ResizeObserver(measure);

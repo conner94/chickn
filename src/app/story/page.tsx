@@ -335,9 +335,14 @@ export default function StoryPage() {
           <Section eyebrow="RESULT" title="하나씩 다듬은 3D 아이템 10종" desc="썸네일 이미지를 옆에 두고 형태·색감·재질을 하나씩 맞춘 결과.">
             <ul className="grid grid-cols-2 gap-2 sm:grid-cols-5 lg:gap-3">
               {ITEMS.map(([id, name]) => (
-                <li key={id} className="relative overflow-hidden rounded-3xl bg-white/80 shadow-sm ring-1 ring-stone-900/5">
-                  <img src={`/story/pv-${id}.jpg`} alt={`${name} 3D 모델`} loading="lazy" className="aspect-square w-full scale-[1.35] object-cover" />
-                  <div className="relative flex items-center justify-center gap-1.5 pb-3">
+                // 서비스 아이템 카드와 같은 유리 카드: 반투명 흰 바탕 + 블러 + 이미지 뒤 은은한 색 번짐
+                <li
+                  key={id}
+                  className="relative overflow-hidden rounded-[28px] bg-white/45 shadow-[0_4px_14px_-6px_rgba(60,40,20,0.16)] ring-1 ring-white/80 backdrop-blur-xl"
+                >
+                  <span className="pointer-events-none absolute top-[18%] left-1/2 h-2/3 w-2/3 -translate-x-1/2 rounded-full bg-[#f3e2cf]/80 blur-2xl" aria-hidden="true" />
+                  <img src={`/story/pv-${id}.png`} alt={`${name} 3D 모델`} loading="lazy" className="relative -my-[8%] aspect-square w-full scale-[1.15] object-contain" />
+                  <div className="relative -mt-2 flex items-center justify-center gap-1.5 pb-4">
                     <img src={`/items/${id}.png`} alt="" width={20} height={20} className="h-5 w-5 object-contain" />
                     <span className="text-sm font-bold text-stone-800">{name}</span>
                   </div>
@@ -376,14 +381,15 @@ export default function StoryPage() {
           </Section>
 
           {/* 마무리: PC에서는 왼쪽 문구 / 오른쪽 버튼인 가로 배너 */}
-          <footer className="mt-16 flex flex-col items-center gap-4 text-center lg:mt-28 lg:flex-row lg:justify-between lg:rounded-[32px] lg:bg-white/[0.06] lg:px-12 lg:py-10 lg:text-left lg:ring-1 lg:ring-white/10">
+          {/* 인트로와 같은 라테 샌드 배경의 유리 카드 + 인트로와 같은 검정 버튼 */}
+          <footer className="mt-16 flex flex-col items-center gap-5 rounded-[32px] bg-[radial-gradient(120%_120%_at_30%_0%,#f7eadb_0%,#efdcc5_100%)] px-6 py-8 text-center shadow-[0_12px_40px_-16px_rgba(0,0,0,0.5)] ring-1 ring-white/40 backdrop-blur-xl lg:mt-28 lg:flex-row lg:justify-between lg:px-12 lg:py-10 lg:text-left">
             <div>
-              <p className="text-lg font-black text-white lg:text-3xl lg:tracking-tight">오늘 나는 얼마나 벌었을까?</p>
-              <p className="mt-2 hidden text-stone-400 lg:block">연봉만 넣으면 지금 이 순간까지 번 돈만큼 쏟아지는 치킨.</p>
+              <p className="text-xl font-black text-stone-900 lg:text-3xl lg:tracking-tight">오늘 나는 얼마나 벌었을까?</p>
+              <p className="mt-2 text-sm text-stone-600 lg:text-base">연봉만 넣으면 지금 이 순간까지 번 돈만큼 쏟아지는 치킨.</p>
             </div>
             <Link
               href="/"
-              className="flex w-full max-w-sm items-center justify-center rounded-full bg-accent py-4 text-[15px] font-bold text-white shadow-md transition hover:bg-accent-strong active:scale-[0.97] lg:w-72 lg:shrink-0"
+              className="flex w-full max-w-sm items-center justify-center rounded-full bg-stone-900 py-4 text-[15px] font-bold text-white shadow-md transition hover:bg-stone-800 active:scale-[0.97] lg:w-72 lg:shrink-0"
             >
               지금 확인하러 가기
             </Link>
