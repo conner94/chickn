@@ -193,7 +193,7 @@ const ITEMS: [string, string, number][] = [
   ["cupramen", "컵라면", 27],
   ["coffee", "커피", 28],
   ["tteokbokki", "떡볶이", 41],
-  ["soju", "소주", 21],
+  ["soju", "소주", 17],
   ["burger", "햄버거세트", 38],
   ["samgak", "삼각김밥", 34],
   ["gukbap", "국밥", 40],
@@ -248,7 +248,7 @@ export default function StoryPage() {
                 <br />
                 대화로 만든 <span className="text-accent">오늘 번 돈</span>
               </h1>
-              <p className="mt-4 max-w-md text-[15px] leading-relaxed text-stone-600 lg:mt-6 lg:max-w-none lg:text-lg">
+              <p className="mt-4 max-w-md text-[15px] leading-relaxed text-stone-700 lg:mt-6 lg:max-w-none lg:text-lg">
                 연봉을 넣으면 지금 이 순간 번 돈만큼 치킨·피자·떡볶이가 쏟아지는 웹서비스. 디자인 툴 없이 터미널에서 Claude Code(AI 코딩 에이전트)와
                 PRD.md 한 장과 대화만으로 배포까지 간 과정 정리.
               </p>
@@ -290,7 +290,7 @@ export default function StoryPage() {
                   </span>
                   <div>
                     <h3 className="font-bold text-stone-900">{w.title}</h3>
-                    <p className="mt-1 text-sm leading-relaxed text-stone-600">{w.body}</p>
+                    <p className="mt-1 text-sm leading-relaxed text-stone-700">{w.body}</p>
                   </div>
                 </li>
               ))}
@@ -320,7 +320,7 @@ export default function StoryPage() {
                       )}
                     </div>
                     <h3 className="mt-2 text-xl font-black tracking-tight text-stone-900">{step.title}</h3>
-                    <p className="mt-2 text-[15px] leading-relaxed text-stone-600">{step.body}</p>
+                    <p className="mt-2 text-[15px] leading-relaxed text-stone-700">{step.body}</p>
                     {step.prompt && (
                       // 터미널 입력처럼: 테두리 박스 안에 고정폭 명령 + 터미널 창의 요청 줄과 같은 글꼴(기본 글꼴 13px)
                       <div className="mt-4 rounded-2xl px-4 py-3.5 ring-1 ring-[#e8dccd]">
@@ -328,7 +328,7 @@ export default function StoryPage() {
                           <span className="text-accent">$</span> <span className="text-stone-800">claude</span>{" "}
                           <span className="text-stone-500">--request</span>
                         </span>
-                        <ul className="mt-2 space-y-1.5 text-[13px] leading-relaxed text-stone-600">
+                        <ul className="mt-2 space-y-1.5 text-[13px] leading-relaxed text-stone-700">
                           {step.prompt.map((line) => (
                             <li key={line} className="flex gap-1.5">
                               <span className="text-stone-400" aria-hidden="true">&gt;</span>
