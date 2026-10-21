@@ -279,15 +279,16 @@ export default function StoryPage() {
                     <h3 className="mt-2 text-xl font-black tracking-tight text-stone-900">{step.title}</h3>
                     <p className="mt-2 text-[15px] leading-relaxed text-stone-600">{step.body}</p>
                     {step.prompt && (
-                      // 말풍선 대신 터미널 입력처럼: 고정폭 플래그 + 왼쪽 프롬프트 선
-                      <div className="mt-4 border-l-2 border-accent/40 pl-4">
-                        <span className="font-mono text-xs font-semibold text-accent">
-                          <span className="text-stone-400">$ claude</span> --request
+                      // 터미널 입력처럼: 연한 박스 안에 고정폭 명령 + 터미널 창의 요청 줄과 같은 글꼴(기본 글꼴 13px)
+                      <div className="mt-4 rounded-2xl bg-[#f4ece2] px-4 py-3.5 ring-1 ring-[#e8dccd]">
+                        <span className="font-mono text-[13px]">
+                          <span className="text-accent">$</span> <span className="text-stone-800">claude</span>{" "}
+                          <span className="text-stone-500">--request</span>
                         </span>
-                        <ul className="mt-2 space-y-1.5 text-sm leading-relaxed text-stone-700">
+                        <ul className="mt-2 space-y-1.5 text-[13px] leading-relaxed text-stone-600">
                           {step.prompt.map((line) => (
-                            <li key={line} className="flex gap-2">
-                              <span className="font-mono text-stone-400" aria-hidden="true">&gt;</span>
+                            <li key={line} className="flex gap-1.5">
+                              <span className="text-stone-400" aria-hidden="true">&gt;</span>
                               <span>{line}</span>
                             </li>
                           ))}
