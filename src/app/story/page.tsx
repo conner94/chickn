@@ -176,44 +176,46 @@ function ShotImage({ shot }: { shot: Shot }) {
 
 export default function StoryPage() {
   return (
-    <main className="mx-auto w-full max-w-3xl px-4 pt-[max(2.5rem,env(safe-area-inset-top))] pb-[max(3rem,env(safe-area-inset-bottom))]">
+    <main className="mx-auto w-full max-w-3xl px-4 pt-[max(2.5rem,env(safe-area-inset-top))] lg:max-w-[1200px] lg:px-8 lg:pt-20 pb-[max(3rem,env(safe-area-inset-bottom))]">
       {/* 히어로 */}
-      <header className="flex flex-col items-center text-center">
-        <span className="rounded-full bg-accent-soft px-3 py-1 text-xs font-bold text-accent-strong">
-          나의 첫 MCP · AI 에이전트 스터디
-        </span>
-        <h1 className="mt-5 text-[34px] leading-[1.2] font-black tracking-tight text-stone-900 sm:text-5xl">
-          피그마 없이,
-          <br />
-          대화로 만든 <span className="text-accent">오늘 번 돈</span>
-        </h1>
-        <p className="mt-4 max-w-md text-[15px] leading-relaxed text-stone-600">
-          연봉을 넣으면 지금 이 순간 번 돈만큼 치킨·피자·떡볶이가 쏟아지는 웹서비스. 디자인 툴 없이 AI 코딩 에이전트와 대화만으로 기획서 한 장에서
-          배포까지 간 과정을 정리했어요.
-        </p>
-        <div className="mt-6 flex w-full max-w-sm gap-2">
-          <Link
-            href="/"
-            className="flex flex-[1.4] items-center justify-center rounded-2xl bg-stone-900 py-3.5 text-[15px] font-bold text-white shadow-md transition hover:bg-stone-800 active:scale-[0.97]"
-          >
-            서비스 써 보기
-          </Link>
-          <a
-            href="https://github.com/conner94/chickn"
-            target="_blank"
-            rel="noreferrer"
-            className="flex flex-1 items-center justify-center rounded-2xl bg-white/90 py-3.5 text-[15px] font-bold text-stone-800 shadow-sm ring-1 ring-stone-900/5 transition hover:bg-white active:scale-[0.97]"
-          >
-            GitHub
-          </a>
+      <header className="flex flex-col items-center text-center lg:flex-row lg:justify-between lg:gap-16 lg:text-left">
+        <div className="flex flex-col items-center lg:max-w-[560px] lg:items-start">
+          <span className="rounded-full bg-accent-soft px-3 py-1 text-xs font-bold text-accent-strong">
+            나의 첫 MCP · AI 에이전트 스터디
+          </span>
+          <h1 className="mt-5 text-[34px] leading-[1.2] font-black tracking-tight text-stone-900 sm:text-5xl lg:text-6xl">
+            피그마 없이,
+            <br />
+            대화로 만든 <span className="text-accent">오늘 번 돈</span>
+          </h1>
+          <p className="mt-4 max-w-md text-[15px] leading-relaxed text-stone-600 lg:mt-6 lg:max-w-none lg:text-lg">
+            연봉을 넣으면 지금 이 순간 번 돈만큼 치킨·피자·떡볶이가 쏟아지는 웹서비스. 디자인 툴 없이 AI 코딩 에이전트와 대화만으로 기획서 한 장에서
+            배포까지 간 과정을 정리했어요.
+          </p>
+          <div className="mt-6 flex w-full max-w-sm gap-2 lg:mt-8">
+            <Link
+              href="/"
+              className="flex flex-[1.4] items-center justify-center rounded-2xl bg-stone-900 py-3.5 text-[15px] font-bold text-white shadow-md transition hover:bg-stone-800 active:scale-[0.97]"
+            >
+              서비스 써보기
+            </Link>
+            <a
+              href="https://github.com/conner94/chickn"
+              target="_blank"
+              rel="noreferrer"
+              className="flex flex-1 items-center justify-center rounded-2xl bg-white/90 py-3.5 text-[15px] font-bold text-stone-800 shadow-sm ring-1 ring-stone-900/5 transition hover:bg-white active:scale-[0.97]"
+            >
+              GitHub
+            </a>
+          </div>
         </div>
-        <div className="mt-10 w-full max-w-[300px]">
+        <div className="mt-10 w-full max-w-[300px] lg:mt-0 lg:shrink-0">
           <ShotImage shot={{ src: "/story/13-live.jpg", alt: "완성된 오늘 번 돈 화면", phone: true }} />
         </div>
       </header>
 
       {/* 숫자 */}
-      <section className="mt-12 grid grid-cols-2 gap-2 sm:grid-cols-4">
+      <section className="mt-12 grid grid-cols-2 gap-2 sm:grid-cols-4 lg:mt-20 lg:gap-3">
         {STATS.map((s) => (
           <div key={s.label} className="rounded-3xl bg-white/80 px-3 py-5 text-center shadow-sm ring-1 ring-stone-900/5">
             <div className="text-3xl font-black text-stone-900 tabular-nums">
@@ -226,11 +228,11 @@ export default function StoryPage() {
       </section>
 
       {/* 일하는 방식 */}
-      <section className="mt-16">
+      <section className="mt-16 lg:mt-28">
         <SectionTitle eyebrow="HOW" title="이렇게 만들었어요" />
-        <ol className="mt-6 grid gap-2 sm:grid-cols-2">
+        <ol className="mt-6 grid gap-2 sm:grid-cols-2 lg:grid-cols-4 lg:gap-3">
           {WORKFLOW.map((w, i) => (
-            <li key={w.title} className="flex gap-3 rounded-3xl bg-white/80 p-5 shadow-sm ring-1 ring-stone-900/5">
+            <li key={w.title} className="flex gap-3 rounded-3xl lg:flex-col bg-white/80 p-5 shadow-sm ring-1 ring-stone-900/5">
               <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-accent text-sm font-black text-white">
                 {i + 1}
               </span>
@@ -244,43 +246,46 @@ export default function StoryPage() {
       </section>
 
       {/* 타임라인 */}
-      <section className="mt-16">
+      <section className="mt-16 lg:mt-28">
         <SectionTitle eyebrow="PROCESS" title="초안에서 완성까지" />
         <ol className="relative mt-8">
           {/* 세로 선 */}
           <span className="absolute top-2 bottom-2 left-[11px] w-0.5 rounded-full bg-accent-light/50" aria-hidden="true" />
           {STEPS.map((step, i) => (
-            <li key={i} className="relative pb-14 pl-10 last:pb-0">
+            <li key={i} className="relative pb-14 pl-10 last:pb-0 lg:grid lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] lg:items-start lg:gap-12 lg:pb-20 lg:pl-14">
               <span
                 className="absolute top-1 left-0 flex h-6 w-6 items-center justify-center rounded-full bg-white ring-4 ring-[#fdf6ec]"
                 aria-hidden="true"
               >
                 <span className="h-2.5 w-2.5 rounded-full bg-accent" />
               </span>
-              <div className="flex flex-wrap items-center gap-2 text-xs font-bold">
-                <span className="text-stone-400 tabular-nums">{step.date}</span>
-                <span className="rounded-full bg-accent-soft px-2.5 py-0.5 text-accent-strong">{step.tag}</span>
+              {/* PC에서는 글이 스크롤 동안 따라오도록 sticky */}
+              <div className="lg:sticky lg:top-10">
+                <div className="flex flex-wrap items-center gap-2 text-xs font-bold">
+                  <span className="text-stone-400 tabular-nums">{step.date}</span>
+                  <span className="rounded-full bg-accent-soft px-2.5 py-0.5 text-accent-strong">{step.tag}</span>
+                </div>
+                <h3 className="mt-2 text-xl font-black tracking-tight text-stone-900 lg:text-2xl">{step.title}</h3>
+                <p className="mt-2 text-[15px] leading-relaxed text-stone-600">{step.body}</p>
+                {step.prompt && (
+                  <blockquote className="mt-4 rounded-2xl rounded-tl-md bg-stone-900 px-4 py-3 text-sm leading-relaxed text-stone-100">
+                    <span className="mb-1 block text-[11px] font-bold tracking-wide text-accent-light">내가 보낸 말</span>
+                    {step.prompt}
+                  </blockquote>
+                )}
+                {step.flow && (
+                  <ol className="mt-4 flex flex-wrap items-center gap-1.5 text-sm font-bold">
+                    {step.flow.map((f, j) => (
+                      <li key={f} className="flex items-center gap-1.5">
+                        {j > 0 && <span className="text-accent-light" aria-hidden="true">→</span>}
+                        <span className="rounded-full bg-white/90 px-3 py-1 text-stone-700 shadow-sm ring-1 ring-stone-900/5">{f}</span>
+                      </li>
+                    ))}
+                  </ol>
+                )}
               </div>
-              <h3 className="mt-2 text-xl font-black tracking-tight text-stone-900">{step.title}</h3>
-              <p className="mt-2 text-[15px] leading-relaxed text-stone-600">{step.body}</p>
-              {step.prompt && (
-                <blockquote className="mt-4 rounded-2xl rounded-tl-md bg-stone-900 px-4 py-3 text-sm leading-relaxed text-stone-100">
-                  <span className="mb-1 block text-[11px] font-bold tracking-wide text-accent-light">내가 보낸 말</span>
-                  {step.prompt}
-                </blockquote>
-              )}
-              {step.flow && (
-                <ol className="mt-4 flex flex-wrap items-center gap-1.5 text-sm font-bold">
-                  {step.flow.map((f, j) => (
-                    <li key={f} className="flex items-center gap-1.5">
-                      {j > 0 && <span className="text-accent-light" aria-hidden="true">→</span>}
-                      <span className="rounded-full bg-white/90 px-3 py-1 text-stone-700 shadow-sm ring-1 ring-stone-900/5">{f}</span>
-                    </li>
-                  ))}
-                </ol>
-              )}
               {/* 폰 화면은 나란히, 가로로 긴 비교 이미지는 위아래로 */}
-              <div className={`mt-5 flex items-start gap-3 ${step.shots.every((s) => s.phone) ? "" : "flex-col"}`}>
+              <div className={`mt-5 lg:mt-0 flex items-start gap-3 ${step.shots.every((s) => s.phone) ? "" : "flex-col"}`}>
                 {step.shots.map((shot) => (
                   <div key={shot.src} className="flex w-full flex-1 justify-center">
                     <ShotImage shot={shot} />
@@ -293,9 +298,9 @@ export default function StoryPage() {
       </section>
 
       {/* 10종 3D */}
-      <section className="mt-16">
+      <section className="mt-16 lg:mt-28">
         <SectionTitle eyebrow="RESULT" title="하나씩 다듬은 3D 아이템 10종" />
-        <ul className="mt-6 grid grid-cols-2 gap-2 sm:grid-cols-5">
+        <ul className="mt-6 grid grid-cols-2 gap-2 sm:grid-cols-5 lg:gap-3">
           {ITEMS.map(([id, name]) => (
             <li key={id} className="relative overflow-hidden rounded-3xl bg-white/80 shadow-sm ring-1 ring-stone-900/5">
               <img src={`/story/pv-${id}.jpg`} alt={`${name} 3D 모델`} loading="lazy" className="aspect-square w-full scale-[1.35] object-cover" />
@@ -309,9 +314,9 @@ export default function StoryPage() {
       </section>
 
       {/* 배운 것 */}
-      <section className="mt-16">
+      <section className="mt-16 lg:mt-28">
         <SectionTitle eyebrow="LEARNED" title="해 보고 알게 된 것" />
-        <div className="mt-6 grid gap-2 sm:grid-cols-2">
+        <div className="mt-6 grid gap-2 sm:grid-cols-2 lg:grid-cols-4 lg:gap-3">
           {LEARNINGS.map((l) => (
             <div key={l.title} className="rounded-3xl bg-white/80 p-5 shadow-sm ring-1 ring-stone-900/5">
               <h3 className="font-bold text-stone-900">{l.title}</h3>
@@ -322,7 +327,7 @@ export default function StoryPage() {
       </section>
 
       {/* 스택 */}
-      <section className="mt-16">
+      <section className="mt-16 lg:mt-28">
         <SectionTitle eyebrow="STACK" title="사용한 도구" />
         <ul className="mt-6 flex flex-wrap justify-center gap-2">
           {STACK.map((s) => (
@@ -333,7 +338,7 @@ export default function StoryPage() {
         </ul>
       </section>
 
-      <footer className="mt-16 flex flex-col items-center gap-4 text-center">
+      <footer className="mt-16 lg:mt-28 flex flex-col items-center gap-4 text-center">
         <p className="text-lg font-black text-stone-900">오늘 나는 얼마나 벌었을까?</p>
         <Link
           href="/"
