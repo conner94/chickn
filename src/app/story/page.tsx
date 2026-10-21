@@ -4,7 +4,7 @@ import { IntroBackdrop } from "./IntroBackdrop";
 import { GridItem, ItemGrid } from "./ItemGrid";
 
 // 이 프로젝트를 만든 과정을 소개하는 정적 페이지 (/story). 스크린샷은 public/story/ 에 있다.
-const title = "MCP · AI 에이전트 스터디 결과 보고서 · 오늘 번 돈";
+const title = "MCP · AI Agent 스터디 결과 보고서 · 오늘 번 돈";
 const description = "피그마 없이 PRD.md 한 장과 AI 에이전트와의 대화만으로 배포까지 간 첫 MCP 스터디 기록.";
 
 export const metadata: Metadata = {
@@ -251,7 +251,7 @@ export default function StoryPage() {
               <span className="rounded-full bg-white/70 px-3 py-1 text-xs font-bold text-accent-strong">D2-GXG-T5 · Conner</span>
               {/* 스터디 결과 보고서 타이틀 */}
               <h1 className="mt-5 text-[34px] leading-[1.2] font-ko font-black tracking-tight text-stone-900 sm:text-5xl lg:text-6xl">
-                MCP · AI 에이전트
+                MCP · AI Agent
                 <br />
                 스터디 <span className="text-accent">결과 보고서</span>
               </h1>
