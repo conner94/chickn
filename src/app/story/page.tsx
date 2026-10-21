@@ -328,7 +328,7 @@ export default function StoryPage() {
                           <span className="text-accent">$</span> <span className="text-stone-800">claude</span>{" "}
                           <span className="text-stone-500">--request</span>
                         </span>
-                        <ul className="mt-2 space-y-1.5 text-[13px] leading-relaxed text-stone-700">
+                        <ul className="mt-2 space-y-1.5 text-[13px] leading-relaxed text-stone-600">
                           {step.prompt.map((line) => (
                             <li key={line} className="flex gap-1.5">
                               <span className="text-stone-400" aria-hidden="true">&gt;</span>
@@ -482,7 +482,7 @@ function Section({
       <div className="text-center lg:sticky lg:top-10 lg:self-start lg:text-left">
         <span className={`text-xs font-black tracking-[0.2em] ${dark ? "text-accent-light" : "text-accent"}`}>{eyebrow}</span>
         <h2 className={`mt-1.5 text-2xl font-black tracking-tight sm:text-3xl lg:leading-snug ${dark ? "text-white" : "text-stone-900"}`}>{title}</h2>
-        <p className={`mt-3 hidden text-[15px] leading-relaxed lg:block ${dark ? "text-stone-400" : "text-stone-500"}`}>{desc}</p>
+        <p className={`mt-3 hidden text-[15px] leading-relaxed lg:block ${dark ? "text-stone-400" : "text-stone-700"}`}>{desc}</p>
       </div>
       <div className="mt-6 lg:mt-0">{children}</div>
     </section>
