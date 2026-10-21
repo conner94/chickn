@@ -440,7 +440,7 @@ export default function StoryPage() {
           <div className="flex items-center gap-1.5">
             {/* 서비스 로고(치킨 닭다리, 파비콘과 같은 이미지)의 흑백 버전 */}
             <img src="/items/chicken.png" alt="" width={42} height={42} className="h-[42px] w-[42px] object-contain grayscale" />
-            <span className="text-[28px] font-ko font-black text-neutral-800">오늘 번 돈</span>
+            <span className="text-[22px] font-ko font-black text-neutral-800">오늘 번 돈</span>
           </div>
           <p className="flex flex-wrap items-center justify-center gap-x-2 text-sm font-medium text-neutral-500">
             <span>PTKOREA</span>
