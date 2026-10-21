@@ -247,12 +247,11 @@ export default function StoryPage() {
           {/* 히어로 */}
           <header className="flex flex-col items-center text-center lg:flex-row lg:justify-between lg:gap-16 lg:text-left">
             <div className="flex flex-col items-center lg:max-w-[560px] lg:items-start">
-              <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 lg:justify-start">
-                <span className="rounded-full bg-white/70 px-3 py-1 text-xs font-bold text-accent-strong">MCP · AI 에이전트 스터디</span>
-                <span className="text-xs font-medium text-stone-500">
-                  PTKOREA · D2-GXG-T5 · <span className="font-bold text-stone-800">Conner</span>
-                </span>
-              </div>
+              {/* 소속·이름은 맨 위 한 줄, 그 아래 배지 */}
+              <p className="text-xs font-medium text-stone-500">
+                PTKOREA · D2-GXG-T5 · <span className="font-bold text-stone-800">Conner</span>
+              </p>
+              <span className="mt-3 rounded-full bg-white/70 px-3 py-1 text-xs font-bold text-accent-strong">MCP · AI 에이전트 스터디</span>
               <h1 className="mt-5 text-[34px] leading-[1.2] font-black tracking-tight text-stone-900 sm:text-5xl lg:text-6xl">
                 피그마 없이,
                 <br />
