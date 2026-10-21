@@ -253,10 +253,10 @@ export default function StoryPage() {
                 연봉을 넣으면 지금 이 순간 번 돈만큼 치킨·피자·떡볶이가 쏟아지는 웹서비스. 디자인 툴 없이 터미널에서 Claude Code(AI 코딩 에이전트)와
                 PRD.md 한 장과 대화만으로 배포까지 간 과정 정리.
               </p>
-              <div className="pointer-events-auto mt-6 flex w-full max-w-sm gap-2 lg:mt-8">
+              <div className="pointer-events-auto mt-6 flex w-full max-w-sm flex-col gap-2 sm:flex-row lg:mt-8">
                 <Link
                   href="/"
-                  className="flex flex-[1.4] items-center justify-center rounded-2xl bg-stone-900 py-3.5 text-[15px] font-bold text-white shadow-md transition hover:bg-stone-800 active:scale-[0.97]"
+                  className="flex items-center sm:flex-[1.4] justify-center rounded-2xl bg-stone-900 py-3.5 text-[15px] font-bold text-white shadow-md transition hover:bg-stone-800 active:scale-[0.97]"
                 >
                   서비스 써보기
                 </Link>
@@ -264,7 +264,7 @@ export default function StoryPage() {
                   href="https://github.com/conner94/chickn"
                   target="_blank"
                   rel="noreferrer"
-                  className="flex flex-1 items-center justify-center gap-2 rounded-2xl bg-white/90 py-3.5 text-[15px] font-bold text-stone-800 shadow-sm ring-1 ring-stone-900/5 transition hover:bg-white active:scale-[0.97]"
+                  className="flex items-center sm:flex-1 justify-center gap-2 rounded-2xl bg-white/90 py-3.5 text-[15px] font-bold text-stone-800 shadow-sm ring-1 ring-stone-900/5 transition hover:bg-white active:scale-[0.97]"
                 >
                   <GitHubMark className="h-[18px] w-[18px]" />
                   GitHub
