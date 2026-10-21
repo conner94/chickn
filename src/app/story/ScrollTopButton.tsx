@@ -18,7 +18,7 @@ export function ScrollTopButton() {
       type="button"
       aria-label="맨 위로"
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-      className={`fixed right-4 bottom-[max(1rem,env(safe-area-inset-bottom))] z-40 flex h-12 w-12 items-center justify-center rounded-full bg-stone-900 text-white shadow-[0_8px_20px_-6px_rgba(0,0,0,0.45)] transition duration-300 hover:bg-stone-800 active:scale-95 lg:right-8 lg:bottom-8 ${
+      className={`fixed right-4 bottom-[max(1rem,env(safe-area-inset-bottom))] z-40 flex h-12 w-12 items-center justify-center rounded-full bg-stone-900 text-white shadow-[0_8px_20px_-6px_rgba(0,0,0,0.45)] ring-1 ring-white/20 transition duration-300 hover:bg-stone-800 active:scale-95 lg:right-8 lg:bottom-8 ${
         visible ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-3 opacity-0"
       }`}
     >
