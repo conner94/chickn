@@ -264,7 +264,7 @@ export default function StoryPage() {
                   href="/"
                   className="flex items-center gap-2 sm:flex-[1.4] justify-center rounded-2xl bg-stone-900 py-3.5 text-[15px] font-bold text-white shadow-md transition hover:bg-stone-800 active:scale-[0.97]"
                 >
-                  <img src="/brand/logo.png" alt="" width={18} height={18} className="h-[18px] w-[18px] object-contain" />
+                  <img src="/items/chicken.png" alt="" width={18} height={18} className="h-[18px] w-[18px] object-contain" />
                   서비스 써보기
                 </Link>
                 <a
@@ -427,7 +427,7 @@ export default function StoryPage() {
               href="/"
               className="flex w-full max-w-sm items-center gap-2 justify-center rounded-full bg-accent py-4 text-[15px] font-bold text-white shadow-md transition hover:bg-accent-strong active:scale-[0.97] lg:w-72 lg:shrink-0"
             >
-              <img src="/brand/logo.png" alt="" width={18} height={18} className="h-[18px] w-[18px] object-contain" />
+              <img src="/items/chicken.png" alt="" width={18} height={18} className="h-[18px] w-[18px] object-contain" />
               지금 확인하러 가기
             </Link>
           </section>
