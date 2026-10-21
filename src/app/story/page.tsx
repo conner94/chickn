@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { IntroBackdrop } from "./IntroBackdrop";
+import { GridItem, ItemGrid } from "./ItemGrid";
 
 // 이 프로젝트를 만든 과정을 소개하는 정적 페이지 (/story). 스크린샷은 public/story/ 에 있다.
 const title = "만든 과정 · 오늘 번 돈";
@@ -186,7 +187,7 @@ const STEPS: Step[] = [
 ];
 
 /** [id, 이름, 카드 너비 대비 이미지 너비(%)] — 면적이 비슷해 보이도록 가로세로 비율로 환산 (삼각김밥 34% 기준) */
-const ITEMS: [string, string, number][] = [
+const ITEMS: GridItem[] = [
   ["chicken", "치킨", 35],
   ["pizza", "피자", 41],
   ["icecream", "아이스크림", 24],
@@ -376,25 +377,8 @@ export default function StoryPage() {
           </Section>
 
           {/* 10종 3D */}
-          <Section eyebrow="RESULT" title="하나씩 다듬은 3D 아이템 10종" desc="썸네일 이미지를 옆에 두고 형태·색감·재질을 하나씩 맞춘 결과.">
-            <ul className="grid grid-cols-2 gap-2 sm:grid-cols-5 lg:gap-3">
-              {ITEMS.map(([id, name, width]) => (
-                // 서비스 아이템 카드와 같은 유리 카드: 반투명 흰 바탕 + 블러 + 이미지 뒤 은은한 색 번짐
-                <li
-                  key={id}
-                  className="relative overflow-hidden rounded-[28px] bg-white/45 shadow-[0_4px_14px_-6px_rgba(60,40,20,0.16)] ring-1 ring-white/80 backdrop-blur-xl"
-                >
-                  <span className="pointer-events-none absolute top-[18%] left-1/2 h-2/3 w-2/3 -translate-x-1/2 rounded-full bg-[#f3e2cf]/80 blur-2xl" aria-hidden="true" />
-                  <div className="relative flex aspect-[3/2] items-center justify-center pt-3">
-                    <img src={`/story/pv-${id}.png`} alt={`${name} 3D 모델`} loading="lazy" style={{ width: `${width}%` }} className="h-auto" />
-                  </div>
-                  <div className="relative flex items-center justify-center gap-1.5 pt-2 pb-4">
-                    <img src={`/items/${id}.png`} alt="" width={20} height={20} className="h-5 w-5 object-contain" />
-                    <span className="text-sm font-bold text-stone-800">{name}</span>
-                  </div>
-                </li>
-              ))}
-            </ul>
+          <Section eyebrow="RESULT" title="하나씩 다듬은 3D 아이템 10종" desc="썸네일 이미지를 옆에 두고 형태·색감·재질을 하나씩 맞춘 결과. 카드를 누르면 쏟아짐.">
+            <ItemGrid items={ITEMS} />
           </Section>
 
         </div>
