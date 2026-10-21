@@ -247,12 +247,12 @@ export default function StoryPage() {
           {/* 히어로 */}
           <header className="flex flex-col items-center text-center lg:flex-row lg:justify-between lg:gap-16 lg:text-left">
             <div className="flex flex-col items-center lg:max-w-[560px] lg:items-start">
-              {/* 소속·이름은 맨 위 한 줄, 그 아래 배지 */}
-              <p className="text-xs font-medium text-stone-500">
+              {/* 맨 위 배지, 그 아래 소속·이름 한 줄 */}
+              <span className="rounded-full bg-white/70 px-3 py-1 text-xs font-bold text-accent-strong">MCP · AI 에이전트 스터디</span>
+              <p className="mt-2.5 text-xs font-medium text-stone-500">
                 PTKOREA · D2-GXG-T5 · <span className="font-bold text-stone-800">Conner</span>
               </p>
-              <span className="mt-3 rounded-full bg-white/70 px-3 py-1 text-xs font-bold text-accent-strong">MCP · AI 에이전트 스터디</span>
-              <h1 className="mt-5 text-[34px] leading-[1.2] font-black tracking-tight text-stone-900 sm:text-5xl lg:text-6xl">
+              <h1 className="mt-4 text-[34px] leading-[1.2] font-black tracking-tight text-stone-900 sm:text-5xl lg:text-6xl">
                 피그마 없이,
                 <br />
                 대화로 만든 <span className="text-accent">오늘 번 돈</span>
