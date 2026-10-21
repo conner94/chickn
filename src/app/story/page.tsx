@@ -248,7 +248,7 @@ export default function StoryPage() {
           <header className="flex flex-col items-center text-center lg:flex-row lg:justify-between lg:gap-16 lg:text-left">
             <div className="pointer-events-auto flex flex-col items-center lg:max-w-[560px] lg:items-start">
               {/* 작성자 배지 */}
-              <span className="rounded-full bg-white/70 px-3 py-1 text-xs font-bold text-accent-strong">D2-GXG-T5 · Conner</span>
+              <span className="rounded-full bg-white/70 px-3.5 py-1.5 text-sm font-bold text-accent-strong">D2-GXG-T5 · Conner</span>
               {/* 스터디 결과 보고서 타이틀 */}
               <h1 className="mt-5 text-[34px] leading-[1.2] font-ko font-black tracking-tight text-stone-900 sm:text-5xl lg:text-6xl">
                 MCP · AI Agent
