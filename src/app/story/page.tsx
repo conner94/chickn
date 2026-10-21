@@ -20,10 +20,10 @@ const STATS = [
 ];
 
 const WORKFLOW = [
-  { title: "글로 쓴 기획서", body: "화면을 그리는 대신 기능·계산식·기술 스택을 문서로 적어 붙여 넣었어요." },
-  { title: "단계마다 멈추기", body: "4단계로 나눠 한 단계가 끝날 때마다 멈추고 직접 확인한 뒤 다음으로." },
-  { title: "AI가 직접 보고 확인", body: "에이전트가 헤드리스 크롬으로 화면을 찍어 보고 스스로 고쳤어요." },
-  { title: "말로 고치기", body: "“카드를 더 크게”, “두 배로 키워줘”처럼 대화로 디자인을 다듬었어요." },
+  { title: "글로 쓴 기획서", body: "화면을 그리는 대신 기능·계산식·기술 스택을 문서로 정리해 전달." },
+  { title: "단계마다 멈추기", body: "4단계로 나눠 한 단계가 끝날 때마다 직접 확인하고 다음 단계로." },
+  { title: "AI가 직접 보고 확인", body: "에이전트가 헤드리스 크롬으로 화면을 찍어 보고 스스로 수정." },
+  { title: "말로 고치기", body: "“카드를 더 크게”, “두 배로 키워줘”처럼 대화로 디자인을 다듬음." },
 ];
 
 type Shot = { src: string; alt: string; caption?: string; phone?: boolean };
@@ -42,32 +42,32 @@ const STEPS: Step[] = [
   {
     tag: "초안",
     title: "유리 상자 속에 각진 치킨",
-    body: "기획서대로 나온 첫 화면. 계산 로직은 단위 테스트로 먼저 고정하고, 3D는 유리 상자 안에 로우폴리 치킨이 떨어지는 형태였어요.",
+    body: "기획서대로 나온 첫 화면. 계산 로직은 단위 테스트로 먼저 고정하고, 3D는 유리 상자 안에 로우폴리 치킨이 떨어지는 형태.",
     prompt: [
-      "연봉을 입력하면 오늘 번 돈을 초 단위로 실시간 계산해 주세요.",
-      "번 금액만큼 치킨·콜라·커피 3D 오브젝트가 물리 효과로 떨어져 쌓이게 해 주세요.",
-      "외부 API·DB·로그인 없이 브라우저에서만 동작하고, 운영 비용은 0원이어야 해요.",
+      "연봉을 입력하면 오늘 번 돈을 초 단위로 실시간 계산해줘.",
+      "번 금액만큼 치킨·콜라·커피 3D 오브젝트가 물리 효과로 떨어져 쌓이게 해줘.",
+      "외부 API·DB·로그인 없이 브라우저에서만 동작하게. 운영 비용은 0원으로.",
     ],
     shots: [{ src: "/story/01-draft-glassbox.jpg", alt: "유리 상자 안에 각진 치킨이 놓인 첫 화면", phone: true }],
   },
   {
     tag: "기능 확장",
     title: "아이템 17종 + 흘러가는 카드",
-    body: "아이템을 17종으로 늘리고, 저절로 흘러가는 마키 캐러셀과 소소·한 끼·소확행 카테고리 칩을 붙였어요.",
+    body: "아이템을 17종으로 늘리고, 저절로 흘러가는 마키 캐러셀과 소소·한 끼·소확행 카테고리 칩을 추가.",
     prompt: [
-      "아이템을 17종으로 늘리고 가격순으로 정리해 주세요.",
-      "카드가 가로로 천천히 흐르는 무한 캐러셀을 만들고, 만지면 멈추고 누르면 선택되게 해 주세요.",
+      "아이템을 17종으로 늘리고 가격순으로 정리해줘.",
+      "카드가 가로로 천천히 흐르는 무한 캐러셀로 만들고, 만지면 멈추고 누르면 선택되게 해줘.",
     ],
     shots: [{ src: "/story/02-marquee-17.jpg", alt: "카테고리 칩과 마키 카드가 추가된 화면", phone: true }],
   },
   {
     tag: "UI 구조 수정",
     title: "상자를 없애고 화면 전체를 무대로",
-    body: "써 보니 상자가 답답했어요. 카테고리 탭을 없애고, 카드를 금액 바로 아래로 크게 올리고, 오브젝트가 화면 아래에 그냥 쌓이게 구조를 바꿨어요.",
+    body: "써 보니 답답했던 상자를 제거. 카테고리 탭을 없애고, 카드를 금액 바로 아래로 크게 올리고, 오브젝트가 화면 아래에 그대로 쌓이는 구조로 변경.",
     prompt: [
-      "카테고리 탭 없이 모든 아이템을 한 줄로 보여 주세요.",
-      "카드는 금액과 진행 바 바로 아래에 크게 배치해 주세요.",
-      "상자 없이 투명한 화면 위로 떨어져 아래쪽에 자연스럽게 쌓이게 해 주세요.",
+      "카테고리 탭 없이 모든 아이템을 한 줄로 보여줘.",
+      "카드는 금액과 진행 바 바로 아래에 크게 배치해줘.",
+      "상자 없이 투명한 화면 위로 떨어져 아래쪽에 자연스럽게 쌓이게 해줘.",
     ],
     shots: [
       { src: "/story/02-marquee-17.jpg", alt: "구조 수정 전 화면", caption: "Before", phone: true },
@@ -77,41 +77,41 @@ const STEPS: Step[] = [
   {
     tag: "디테일",
     title: "남은 시간과 알맞은 단위",
-    body: "“다음 아이템까지 남은 돈” 대신 남은 시간을 보여 주고, 커피는 잔·김밥은 줄·떡볶이는 그릇처럼 단위를 맞췄어요.",
+    body: "“다음 아이템까지 남은 돈” 대신 남은 시간을 표시하고, 커피는 잔·김밥은 줄·떡볶이는 그릇처럼 단위를 정리.",
     prompt: [
-      "‘다음 아이템까지’는 남은 금액 대신 남은 시간(분·초)으로 보여 주세요.",
-      "단위는 아이템에 맞춰 주세요. 커피는 잔, 김밥은 줄, 떡볶이는 그릇.",
+      "‘다음 아이템까지’는 남은 금액 말고 남은 시간(분·초)으로 보여줘.",
+      "단위는 아이템에 맞춰줘. 커피는 잔, 김밥은 줄, 떡볶이는 그릇.",
     ],
     shots: [{ src: "/story/04-polish.jpg", alt: "남은 시간과 단위가 바뀐 화면", phone: true }],
   },
   {
     tag: "폴리곤 업데이트 ①",
     title: "각진 모델에서 윤기 나는 장난감으로",
-    body: "환경맵 조명, 부드러운 그림자, 클리어코트 재질을 더해 플라스틱 장난감 같은 질감을 냈어요. 후보 조명을 여러 개 찍어 비교한 뒤 골랐어요.",
+    body: "환경맵 조명, 부드러운 그림자, 클리어코트 재질로 플라스틱 장난감 같은 질감 표현. 후보 조명 여러 개를 찍어 비교한 뒤 선택.",
     prompt: [
-      "환경맵, 부드러운 그림자, 은은한 빛 번짐으로 씬의 완성도를 올려 주세요.",
-      "재질은 윤기 있는 장난감 느낌, 색은 파스텔 톤 팔레트로 통일해 주세요.",
-      "유료 서비스 없이, 기존 물리·성능 구조는 그대로 유지해 주세요.",
+      "환경맵, 부드러운 그림자, 은은한 빛 번짐으로 씬 완성도를 올려줘.",
+      "재질은 윤기 있는 장난감 느낌, 색은 파스텔 톤 팔레트로 통일해줘.",
+      "유료 서비스는 쓰지 말고, 기존 물리·성능 구조는 그대로 유지해줘.",
     ],
     shots: [{ src: "/story/05-toy-material.jpg", alt: "윤기 있는 치킨과 각진 콜라 비교" }],
   },
   {
     tag: "UI 구조 수정",
     title: "이모지를 직접 만든 썸네일로",
-    body: "아이템 이미지를 직접 준비해 img 폴더에 넣고, 이미지가 없는 아이템은 과감히 뺐어요. 10종이 남았고, 카드는 이미지가 잘 보이도록 유리 질감으로 다시 짰어요.",
+    body: "아이템 이미지를 직접 준비해 교체하고, 이미지가 없는 아이템은 제외해 10종으로 정리. 카드는 이미지가 잘 보이도록 유리 질감으로 재구성.",
     prompt: [
-      "이모지 대신 준비한 썸네일 이미지를 써 주세요. 이미지가 없는 아이템은 제외해요.",
-      "이미지가 잘 보이도록 카드 디자인을 다시 정리해 주세요.",
+      "이모지 대신 내가 준비한 썸네일 이미지를 써줘. 이미지가 없는 아이템은 빼고.",
+      "이미지가 잘 보이도록 카드 디자인을 다시 정리해줘.",
     ],
     shots: [{ src: "/story/06-thumb-cards.jpg", alt: "썸네일 이미지 카드로 바뀐 화면", phone: true }],
   },
   {
     tag: "폴리곤 업데이트 ②",
     title: "썸네일과 나란히 놓고 3D 맞추기",
-    body: "개발용 비교 페이지를 만들어 왼쪽엔 썸네일, 오른쪽엔 3D를 띄웠어요. 매끈한 덩어리였던 치킨에 튀김옷 돌기를 올려 원본에 가깝게 맞췄어요.",
+    body: "개발용 비교 페이지에 왼쪽은 썸네일, 오른쪽은 3D를 배치. 매끈한 덩어리였던 치킨에 튀김옷 돌기를 올려 원본에 가깝게 조정.",
     prompt: [
-      "썸네일과 최대한 같은 형태·색감·재질로 3D 모델을 만들어 주세요.",
-      "치킨부터 하나씩 진행하고, 리소스는 적당한 선에서 써 주세요.",
+      "썸네일과 최대한 같은 형태·색감·재질로 3D 모델을 만들어줘.",
+      "치킨부터 하나씩 진행하고, 리소스는 적당한 선에서 써줘.",
     ],
     shots: [
       { src: "/story/07-chicken-before.jpg", alt: "썸네일과 매끈한 3D 치킨 비교", caption: "1차" },
@@ -120,12 +120,12 @@ const STEPS: Step[] = [
   },
   {
     tag: "해프닝",
-    title: "피자가 너무 커졌어요",
-    body: "“어이없어서 웃기게” 키워 달라고 했더니 화면을 덮는 피자가 나왔어요. 절반으로 줄이고, 토핑이 위를 보며 쌓이도록 방향까지 손봤어요.",
+    title: "너무 커져 버린 피자",
+    body: "“어이없어서 웃기게” 키워 달라는 요청에 화면을 덮는 피자가 등장. 절반으로 줄이고, 토핑이 위를 보며 쌓이도록 방향까지 조정.",
     prompt: [
-      "피자는 치킨보다 훨씬, 웃길 만큼 크게 키워 주세요.",
-      "(너무 커서) 지금의 50%로 줄이고, 디테일은 치킨 수준으로 다듬어 주세요.",
-      "토핑이 위를 향해 쌓이도록 방향을 바꿔 주세요.",
+      "피자는 치킨보다 훨씬, 웃길 만큼 크게 키워줘.",
+      "(너무 커서) 지금의 50%로 줄이고, 디테일은 치킨 수준으로 다듬어줘.",
+      "토핑이 위를 향해 쌓이도록 방향을 바꿔줘.",
     ],
     shots: [
       { src: "/story/09-pizza-giant.jpg", alt: "화면을 덮을 만큼 커진 피자", caption: "너무 큼", phone: true },
@@ -135,11 +135,11 @@ const STEPS: Step[] = [
   {
     tag: "마무리",
     title: "입력 시트, 확인 다이얼로그, 공유 이미지",
-    body: "월급 입력 시트에 “서버로 보내지 않아요” 안내를 넣고, 저장 버튼과 나가기 확인 창을 정리했어요. 공유용 OG 이미지는 아이템이 하늘에서 떨어지는 장면으로.",
+    body: "월급 입력 시트에 “서버로 보내지 않음” 안내를 추가하고, 저장 버튼과 나가기 확인 창을 정리. 공유용 OG 이미지는 아이템이 하늘에서 떨어지는 장면으로.",
     prompt: [
-      "입력값은 서버에 저장되지 않는다는 안내를 입력칸 바로 아래에 넣어 주세요.",
-      "저장 버튼은 하단에 꽉 찬 캡슐형으로, 수정 후 닫으면 확인 창을 띄워 주세요.",
-      "공유 이미지는 글자 없이 아이템이 하늘에서 떨어지는 장면으로 만들어 주세요.",
+      "입력값은 서버에 저장되지 않는다는 안내를 입력칸 바로 아래에 넣어줘.",
+      "저장 버튼은 하단에 꽉 찬 캡슐형으로, 수정 후 닫으면 확인 창을 띄워줘.",
+      "공유 이미지는 글자 없이 아이템이 하늘에서 떨어지는 장면으로 만들어줘.",
     ],
     shots: [
       { src: "/story/14-live-sheet.jpg", alt: "월급 입력 바텀시트", caption: "입력 시트", phone: true },
@@ -149,10 +149,10 @@ const STEPS: Step[] = [
   {
     tag: "배포",
     title: "GitHub에 올리면 자동으로 배포",
-    body: "로컬 폴더를 git 저장소로 만들어 GitHub에 올리고, 이미 있던 Vercel 프로젝트에 연결했어요. 이제 main에 푸시만 하면 같은 주소로 자동 배포돼요.",
+    body: "로컬 폴더를 git 저장소로 만들어 GitHub에 올리고, 기존 Vercel 프로젝트에 연결. main에 푸시하면 같은 주소로 자동 배포.",
     prompt: [
-      "GitHub 저장소를 만들고 기존 Vercel 프로젝트에 연결해 주세요.",
-      "main에 푸시하면 같은 주소로 자동 배포되게 해 주세요.",
+      "GitHub 저장소를 만들고 기존 Vercel 프로젝트에 연결해줘.",
+      "main에 푸시하면 같은 주소로 자동 배포되게 해줘.",
     ],
     flow: ["git init", "GitHub 저장소", "Vercel 연결", "push = 자동 배포"],
     shots: [{ src: "/story/12-og.jpg", alt: "아이템이 떨어지는 공유 이미지", caption: "공유 시 보이는 OG 이미지" }],
@@ -173,10 +173,10 @@ const ITEMS = [
 ];
 
 const LEARNINGS = [
-  { title: "피그마 대신 말로 쓰는 명세", body: "레이아웃을 그리지 않아도 “어디에, 얼마나 크게, 왜”를 문장으로 적으면 화면이 나왔어요. 오히려 의도를 더 명확히 쓰게 됐어요." },
-  { title: "작게 자르고 자주 멈추기", body: "한 번에 다 시키지 않고 단계·아이템 하나씩 요청했더니 결과를 확인하고 방향을 틀기 쉬웠어요." },
-  { title: "비교할 수 있게 만들기", body: "원본 썸네일과 3D를 나란히 보는 페이지 하나가 “비슷하게 해줘”를 구체적인 피드백으로 바꿔 줬어요." },
-  { title: "범위와 비용 정하기", body: "“토큰 너무 많이 쓰지 말고 적당히”처럼 얼마나 공들일지도 같이 말해 주는 게 중요했어요." },
+  { title: "피그마 대신 말로 쓰는 명세", body: "레이아웃을 그리지 않아도 “어디에, 얼마나 크게, 왜”를 문장으로 적으면 화면이 나옴. 오히려 의도를 더 명확히 쓰게 됨." },
+  { title: "작게 자르고 자주 멈추기", body: "한 번에 다 맡기지 않고 단계·아이템 하나씩 요청하니 결과 확인과 방향 수정이 쉬워짐." },
+  { title: "비교할 수 있게 만들기", body: "원본 썸네일과 3D를 나란히 보는 페이지 하나로 “비슷하게 해줘”가 구체적인 피드백이 됨." },
+  { title: "범위와 비용 정하기", body: "“토큰 너무 많이 쓰지 말고 적당히”처럼 얼마나 공들일지도 함께 전달하는 것이 중요." },
 ];
 
 const STACK = ["Claude Code", "Next.js", "TypeScript", "Tailwind CSS", "three.js · React Three Fiber", "Rapier 물리 엔진", "GitHub", "Vercel"];
@@ -219,7 +219,7 @@ export default function StoryPage() {
             </h1>
             <p className="mt-4 max-w-md text-[15px] leading-relaxed text-stone-600 lg:mt-6 lg:max-w-none lg:text-lg">
               연봉을 넣으면 지금 이 순간 번 돈만큼 치킨·피자·떡볶이가 쏟아지는 웹서비스. 디자인 툴 없이 AI 코딩 에이전트와 대화만으로 기획서 한 장에서
-              배포까지 간 과정을 정리했어요.
+              배포까지 간 과정 정리.
             </p>
             <div className="mt-6 flex w-full max-w-sm gap-2 lg:mt-8">
               <Link
@@ -246,10 +246,11 @@ export default function StoryPage() {
         {/* 숫자 */}
         <section className="mt-12 grid grid-cols-2 gap-2 sm:grid-cols-4 lg:mt-20 lg:gap-3">
           {STATS.map((s) => (
-            <div key={s.label} className="rounded-3xl bg-white/80 px-3 py-5 text-center shadow-sm ring-1 ring-stone-900/5">
+            // 흰 버튼과 겹치지 않게 코랄 톤 카드
+            <div key={s.label} className="rounded-3xl bg-accent-soft px-3 py-5 text-center ring-1 ring-accent/15">
               <div className="text-3xl font-black text-stone-900 tabular-nums">
                 {s.value}
-                <span className="ml-0.5 text-base font-bold text-stone-400">{s.unit}</span>
+                <span className="ml-0.5 text-base font-bold text-accent">{s.unit}</span>
               </div>
               <div className="mt-1 text-xs font-medium text-stone-500">{s.label}</div>
             </div>
@@ -257,11 +258,11 @@ export default function StoryPage() {
         </section>
       </div>
 
-      {/* 밴드 2: 만든 과정 (한 톤 진한 샌드) */}
-      <div className="rounded-t-[40px] bg-[#f6e6d2] lg:rounded-t-[64px]">
-        <div className="mx-auto w-full max-w-3xl px-4 lg:max-w-[1200px] lg:px-8 pt-16 pb-28 lg:pt-28 lg:pb-44">
+      {/* 밴드 2: 만든 과정 (아주 연한 베이지) */}
+      <div className="bg-[#fffaf4]">
+        <div className="mx-auto w-full max-w-3xl px-4 lg:max-w-[1200px] lg:px-8 py-16 lg:py-28">
           {/* 일하는 방식 */}
-          <Section eyebrow="HOW" title="이렇게 만들었어요" desc="화면을 그리는 대신 문장으로 설명하고, 결과를 보고 다시 말로 고치는 흐름을 반복했어요.">
+          <Section eyebrow="HOW" title="작업 방식" desc="화면을 그리는 대신 문장으로 설명하고, 결과를 보고 다시 말로 고치는 흐름을 반복.">
             <ol className="grid gap-2 sm:grid-cols-2 lg:gap-3">
               {WORKFLOW.map((w, i) => (
                 <li key={w.title} className="flex gap-3 rounded-3xl bg-white/80 p-5 shadow-sm ring-1 ring-stone-900/5 lg:p-6">
@@ -278,7 +279,7 @@ export default function StoryPage() {
           </Section>
 
           {/* 타임라인 */}
-          <Section eyebrow="PROCESS" title="초안에서 완성까지" desc="초안을 띄워 놓고 써 보면서, 구조와 3D를 한 단계씩 고쳐 나갔어요.">
+          <Section eyebrow="PROCESS" title="초안에서 완성까지" desc="초안을 띄워 놓고 직접 써 보면서 구조와 3D를 한 단계씩 수정.">
             <ol className="relative">
               {/* 세로 선 */}
               <span className="absolute top-2 bottom-2 left-[11px] w-0.5 rounded-full bg-accent-light/50" aria-hidden="true" />
@@ -288,7 +289,7 @@ export default function StoryPage() {
                   className="relative pb-14 pl-10 last:pb-0 lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-start lg:gap-10 lg:pb-20"
                 >
                   <span
-                    className="absolute top-1 left-0 flex h-6 w-6 items-center justify-center rounded-full bg-white ring-4 ring-[#f6e6d2]"
+                    className="absolute top-1 left-0 flex h-6 w-6 items-center justify-center rounded-full bg-white ring-4 ring-[#fffaf4]"
                     aria-hidden="true"
                   >
                     <span className="h-2.5 w-2.5 rounded-full bg-accent" />
@@ -336,7 +337,7 @@ export default function StoryPage() {
           </Section>
 
           {/* 10종 3D */}
-          <Section eyebrow="RESULT" title="하나씩 다듬은 3D 아이템 10종" desc="썸네일 이미지를 옆에 두고 형태·색감·재질을 하나씩 맞춘 결과예요.">
+          <Section eyebrow="RESULT" title="하나씩 다듬은 3D 아이템 10종" desc="썸네일 이미지를 옆에 두고 형태·색감·재질을 하나씩 맞춘 결과.">
             <ul className="grid grid-cols-2 gap-2 sm:grid-cols-5 lg:gap-3">
               {ITEMS.map(([id, name]) => (
                 <li key={id} className="relative overflow-hidden rounded-3xl bg-white/80 shadow-sm ring-1 ring-stone-900/5">
@@ -354,10 +355,10 @@ export default function StoryPage() {
       </div>
 
       {/* 밴드 3: 정리 (어두운 배경) */}
-      <div className="-mt-10 rounded-t-[40px] bg-stone-900 pb-[max(3rem,env(safe-area-inset-bottom))] lg:-mt-16 lg:rounded-t-[64px]">
+      <div className="bg-stone-900 pb-[max(3rem,env(safe-area-inset-bottom))]">
         <div className="mx-auto w-full max-w-3xl px-4 lg:max-w-[1200px] lg:px-8 py-16 lg:py-28">
           {/* 배운 것 */}
-          <Section dark eyebrow="LEARNED" title="해 보고 알게 된 것" desc="처음 AI 에이전트와 서비스를 만들면서 얻은 작업 요령이에요.">
+          <Section dark eyebrow="LEARNED" title="해 보고 알게 된 것" desc="처음 AI 에이전트와 서비스를 만들며 얻은 작업 요령.">
             <div className="grid gap-2 sm:grid-cols-2 lg:gap-3">
               {LEARNINGS.map((l) => (
                 <div key={l.title} className="rounded-3xl bg-white/[0.06] p-5 ring-1 ring-white/10 lg:p-6">
@@ -369,7 +370,7 @@ export default function StoryPage() {
           </Section>
 
           {/* 스택 */}
-          <Section dark eyebrow="STACK" title="사용한 도구" desc="서비스를 만들고 배포하는 데 쓴 도구예요.">
+          <Section dark eyebrow="STACK" title="사용한 도구" desc="서비스를 만들고 배포하는 데 쓴 도구.">
             <ul className="flex flex-wrap justify-center gap-2 lg:justify-start">
               {STACK.map((s) => (
                 <li key={s} className="rounded-full bg-white/10 px-3.5 py-1.5 text-sm font-bold text-stone-100 ring-1 ring-white/10 lg:px-4 lg:py-2 lg:text-[15px]">
@@ -383,7 +384,7 @@ export default function StoryPage() {
           <footer className="mt-16 flex flex-col items-center gap-4 text-center lg:mt-28 lg:flex-row lg:justify-between lg:rounded-[32px] lg:bg-white/[0.06] lg:px-12 lg:py-10 lg:text-left lg:ring-1 lg:ring-white/10">
             <div>
               <p className="text-lg font-black text-white lg:text-3xl lg:tracking-tight">오늘 나는 얼마나 벌었을까?</p>
-              <p className="mt-2 hidden text-stone-400 lg:block">연봉만 넣으면 지금 이 순간까지 번 돈이 쏟아져요.</p>
+              <p className="mt-2 hidden text-stone-400 lg:block">연봉만 넣으면 지금 이 순간까지 번 돈만큼 쏟아지는 치킨.</p>
             </div>
             <Link
               href="/"
