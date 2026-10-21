@@ -396,7 +396,7 @@ export default function StoryPage() {
       <div className="bg-stone-900">
         <div className="mx-auto w-full max-w-3xl px-4 lg:max-w-[1200px] lg:px-8 py-16 lg:py-28">
           {/* 배운 것 */}
-          <Section dark eyebrow="LEARNED" title="해 보고 알게 된 것" desc="처음 AI 에이전트와 서비스를 만들며 얻은 작업 요령.">
+          <Section dark eyebrow="LEARNED" title="해 보고 알게 된 것" desc="AI 에이전트와 서비스를 만들며 얻은 작업 요령.">
             <div className="grid gap-2 sm:grid-cols-2 lg:gap-3">
               {LEARNINGS.map((l) => (
                 <div key={l.title} className="rounded-3xl bg-white/[0.06] p-5 ring-1 ring-white/10 lg:p-6">
