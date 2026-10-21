@@ -176,7 +176,7 @@ function ShotImage({ shot }: { shot: Shot }) {
 
 export default function StoryPage() {
   return (
-    <main className="mx-auto w-full max-w-3xl px-4 pt-[max(2.5rem,env(safe-area-inset-top))] lg:max-w-[1200px] lg:px-8 lg:pt-20 pb-[max(3rem,env(safe-area-inset-bottom))]">
+    <main className="mx-auto w-full max-w-3xl px-4 break-keep pt-[max(2.5rem,env(safe-area-inset-top))] lg:max-w-[1200px] lg:px-8 lg:pt-20 pb-[max(3rem,env(safe-area-inset-bottom))]">
       {/* 히어로 */}
       <header className="flex flex-col items-center text-center lg:flex-row lg:justify-between lg:gap-16 lg:text-left">
         <div className="flex flex-col items-center lg:max-w-[560px] lg:items-start">
@@ -228,11 +228,10 @@ export default function StoryPage() {
       </section>
 
       {/* 일하는 방식 */}
-      <section className="mt-16 lg:mt-28">
-        <SectionTitle eyebrow="HOW" title="이렇게 만들었어요" />
-        <ol className="mt-6 grid gap-2 sm:grid-cols-2 lg:grid-cols-4 lg:gap-3">
+      <Section eyebrow="HOW" title="이렇게 만들었어요" desc="화면을 그리는 대신 문장으로 설명하고, 결과를 보고 다시 말로 고치는 흐름을 반복했어요.">
+        <ol className="grid gap-2 sm:grid-cols-2 lg:gap-3">
           {WORKFLOW.map((w, i) => (
-            <li key={w.title} className="flex gap-3 rounded-3xl lg:flex-col bg-white/80 p-5 shadow-sm ring-1 ring-stone-900/5">
+            <li key={w.title} className="flex gap-3 rounded-3xl bg-white/80 p-5 shadow-sm ring-1 ring-stone-900/5 lg:p-6">
               <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-accent text-sm font-black text-white">
                 {i + 1}
               </span>
@@ -243,16 +242,18 @@ export default function StoryPage() {
             </li>
           ))}
         </ol>
-      </section>
+      </Section>
 
       {/* 타임라인 */}
-      <section className="mt-16 lg:mt-28">
-        <SectionTitle eyebrow="PROCESS" title="초안에서 완성까지" />
-        <ol className="relative mt-8">
+      <Section eyebrow="PROCESS" title="초안에서 완성까지" desc="10월 8일 하루에 대부분을 만들고, 12일에 다듬고, 21일에 GitHub 자동 배포를 연결했어요.">
+        <ol className="relative">
           {/* 세로 선 */}
           <span className="absolute top-2 bottom-2 left-[11px] w-0.5 rounded-full bg-accent-light/50" aria-hidden="true" />
           {STEPS.map((step, i) => (
-            <li key={i} className="relative pb-14 pl-10 last:pb-0 lg:grid lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] lg:items-start lg:gap-12 lg:pb-20 lg:pl-14">
+            <li
+              key={i}
+              className="relative pb-14 pl-10 last:pb-0 lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-start lg:gap-10 lg:pb-20"
+            >
               <span
                 className="absolute top-1 left-0 flex h-6 w-6 items-center justify-center rounded-full bg-white ring-4 ring-[#fdf6ec]"
                 aria-hidden="true"
@@ -265,7 +266,7 @@ export default function StoryPage() {
                   <span className="text-stone-400 tabular-nums">{step.date}</span>
                   <span className="rounded-full bg-accent-soft px-2.5 py-0.5 text-accent-strong">{step.tag}</span>
                 </div>
-                <h3 className="mt-2 text-xl font-black tracking-tight text-stone-900 lg:text-2xl">{step.title}</h3>
+                <h3 className="mt-2 text-xl font-black tracking-tight text-stone-900">{step.title}</h3>
                 <p className="mt-2 text-[15px] leading-relaxed text-stone-600">{step.body}</p>
                 {step.prompt && (
                   <blockquote className="mt-4 rounded-2xl rounded-tl-md bg-stone-900 px-4 py-3 text-sm leading-relaxed text-stone-100">
@@ -285,7 +286,7 @@ export default function StoryPage() {
                 )}
               </div>
               {/* 폰 화면은 나란히, 가로로 긴 비교 이미지는 위아래로 */}
-              <div className={`mt-5 lg:mt-0 flex items-start gap-3 ${step.shots.every((s) => s.phone) ? "" : "flex-col"}`}>
+              <div className={`mt-5 flex items-start gap-3 lg:mt-0 ${step.shots.every((s) => s.phone) ? "" : "flex-col"}`}>
                 {step.shots.map((shot) => (
                   <div key={shot.src} className="flex w-full flex-1 justify-center">
                     <ShotImage shot={shot} />
@@ -295,12 +296,11 @@ export default function StoryPage() {
             </li>
           ))}
         </ol>
-      </section>
+      </Section>
 
       {/* 10종 3D */}
-      <section className="mt-16 lg:mt-28">
-        <SectionTitle eyebrow="RESULT" title="하나씩 다듬은 3D 아이템 10종" />
-        <ul className="mt-6 grid grid-cols-2 gap-2 sm:grid-cols-5 lg:gap-3">
+      <Section eyebrow="RESULT" title="하나씩 다듬은 3D 아이템 10종" desc="썸네일 이미지를 옆에 두고 형태·색감·재질을 하나씩 맞춘 결과예요.">
+        <ul className="grid grid-cols-2 gap-2 sm:grid-cols-5 lg:gap-3">
           {ITEMS.map(([id, name]) => (
             <li key={id} className="relative overflow-hidden rounded-3xl bg-white/80 shadow-sm ring-1 ring-stone-900/5">
               <img src={`/story/pv-${id}.jpg`} alt={`${name} 3D 모델`} loading="lazy" className="aspect-square w-full scale-[1.35] object-cover" />
@@ -311,38 +311,40 @@ export default function StoryPage() {
             </li>
           ))}
         </ul>
-      </section>
+      </Section>
 
       {/* 배운 것 */}
-      <section className="mt-16 lg:mt-28">
-        <SectionTitle eyebrow="LEARNED" title="해 보고 알게 된 것" />
-        <div className="mt-6 grid gap-2 sm:grid-cols-2 lg:grid-cols-4 lg:gap-3">
+      <Section eyebrow="LEARNED" title="해 보고 알게 된 것" desc="처음 AI 에이전트와 서비스를 만들면서 얻은 작업 요령이에요.">
+        <div className="grid gap-2 sm:grid-cols-2 lg:gap-3">
           {LEARNINGS.map((l) => (
-            <div key={l.title} className="rounded-3xl bg-white/80 p-5 shadow-sm ring-1 ring-stone-900/5">
+            <div key={l.title} className="rounded-3xl bg-white/80 p-5 shadow-sm ring-1 ring-stone-900/5 lg:p-6">
               <h3 className="font-bold text-stone-900">{l.title}</h3>
               <p className="mt-1.5 text-sm leading-relaxed text-stone-600">{l.body}</p>
             </div>
           ))}
         </div>
-      </section>
+      </Section>
 
       {/* 스택 */}
-      <section className="mt-16 lg:mt-28">
-        <SectionTitle eyebrow="STACK" title="사용한 도구" />
-        <ul className="mt-6 flex flex-wrap justify-center gap-2">
+      <Section eyebrow="STACK" title="사용한 도구" desc="서비스를 만들고 배포하는 데 쓴 도구예요.">
+        <ul className="flex flex-wrap justify-center gap-2 lg:justify-start">
           {STACK.map((s) => (
-            <li key={s} className="rounded-full bg-white/90 px-3.5 py-1.5 text-sm font-bold text-stone-700 shadow-sm ring-1 ring-stone-900/5">
+            <li key={s} className="rounded-full bg-white/90 px-3.5 py-1.5 text-sm font-bold text-stone-700 shadow-sm ring-1 ring-stone-900/5 lg:px-4 lg:py-2 lg:text-[15px]">
               {s}
             </li>
           ))}
         </ul>
-      </section>
+      </Section>
 
-      <footer className="mt-16 lg:mt-28 flex flex-col items-center gap-4 text-center">
-        <p className="text-lg font-black text-stone-900">오늘 나는 얼마나 벌었을까?</p>
+      {/* 마무리: PC에서는 왼쪽 문구 / 오른쪽 버튼인 가로 배너 */}
+      <footer className="mt-16 flex flex-col items-center gap-4 text-center lg:mt-28 lg:flex-row lg:justify-between lg:rounded-[32px] lg:bg-white/80 lg:px-12 lg:py-10 lg:text-left lg:shadow-sm lg:ring-1 lg:ring-stone-900/5">
+        <div>
+          <p className="text-lg font-black text-stone-900 lg:text-3xl lg:tracking-tight">오늘 나는 얼마나 벌었을까?</p>
+          <p className="mt-2 hidden text-stone-600 lg:block">연봉만 넣으면 지금 이 순간까지 번 돈이 쏟아져요.</p>
+        </div>
         <Link
           href="/"
-          className="flex w-full max-w-sm items-center justify-center rounded-full bg-stone-900 py-4 text-[15px] font-bold text-white shadow-md transition hover:bg-stone-800 active:scale-[0.97]"
+          className="flex w-full max-w-sm items-center justify-center rounded-full bg-stone-900 py-4 text-[15px] font-bold text-white shadow-md transition hover:bg-stone-800 active:scale-[0.97] lg:w-72 lg:shrink-0"
         >
           지금 확인하러 가기
         </Link>
@@ -351,11 +353,16 @@ export default function StoryPage() {
   );
 }
 
-function SectionTitle({ eyebrow, title }: { eyebrow: string; title: string }) {
+/** 모바일은 제목 아래 내용, PC는 왼쪽 제목(따라 내려옴) / 오른쪽 내용 */
+function Section({ eyebrow, title, desc, children }: { eyebrow: string; title: string; desc: string; children: React.ReactNode }) {
   return (
-    <div className="text-center">
-      <span className="text-xs font-black tracking-[0.2em] text-accent">{eyebrow}</span>
-      <h2 className="mt-1.5 text-2xl font-black tracking-tight text-stone-900 sm:text-3xl">{title}</h2>
-    </div>
+    <section className="mt-16 lg:mt-28 lg:grid lg:grid-cols-[280px_minmax(0,1fr)] lg:gap-16">
+      <div className="text-center lg:sticky lg:top-10 lg:self-start lg:text-left">
+        <span className="text-xs font-black tracking-[0.2em] text-accent">{eyebrow}</span>
+        <h2 className="mt-1.5 text-2xl font-black tracking-tight text-stone-900 sm:text-3xl lg:leading-snug">{title}</h2>
+        <p className="mt-3 hidden text-[15px] leading-relaxed text-stone-500 lg:block">{desc}</p>
+      </div>
+      <div className="mt-6 lg:mt-0">{children}</div>
+    </section>
   );
 }
