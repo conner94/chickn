@@ -4,7 +4,7 @@ import { IntroBackdrop } from "./IntroBackdrop";
 import { GridItem, ItemGrid } from "./ItemGrid";
 
 // 이 프로젝트를 만든 과정을 소개하는 정적 페이지 (/story). 스크린샷은 public/story/ 에 있다.
-const title = "만든 과정 · 오늘 번 돈";
+const title = "MCP · AI 에이전트 스터디 결과 보고서 · 오늘 번 돈";
 const description = "피그마 없이 PRD.md 한 장과 AI 에이전트와의 대화만으로 배포까지 간 첫 MCP 스터디 기록.";
 
 export const metadata: Metadata = {
@@ -247,19 +247,17 @@ export default function StoryPage() {
           {/* 히어로 */}
           <header className="flex flex-col items-center text-center lg:flex-row lg:justify-between lg:gap-16 lg:text-left">
             <div className="flex flex-col items-center lg:max-w-[560px] lg:items-start">
-              {/* 맨 위 배지, 그 아래 소속·이름 한 줄 */}
-              <span className="rounded-full bg-white/70 px-3 py-1 text-xs font-bold text-accent-strong">MCP · AI 에이전트 스터디</span>
-              <p className="mt-2.5 text-xs font-medium text-stone-500">
-                PTKOREA · D2-GXG-T5 · <span className="font-bold text-stone-800">Conner</span>
-              </p>
-              <h1 className="mt-4 text-[34px] leading-[1.2] font-black tracking-tight text-stone-900 sm:text-5xl lg:text-6xl">
-                피그마 없이,
+              {/* 작성자 배지 */}
+              <span className="rounded-full bg-white/70 px-3 py-1 text-xs font-bold text-accent-strong">D2-GXG-T5 · Conner</span>
+              {/* 스터디 결과 보고서 타이틀 */}
+              <h1 className="mt-5 text-[34px] leading-[1.2] font-black tracking-tight text-stone-900 sm:text-5xl lg:text-6xl">
+                MCP · AI 에이전트
                 <br />
-                대화로 만든 <span className="text-accent">오늘 번 돈</span>
+                스터디 <span className="text-accent">결과 보고서</span>
               </h1>
               <p className="mt-4 max-w-md text-[15px] leading-relaxed text-stone-700 lg:mt-6 lg:max-w-none lg:text-lg">
-                연봉을 넣으면 지금 이 순간 번 돈만큼 치킨·피자·떡볶이가 쏟아지는 웹서비스. 디자인 툴 없이 터미널에서 Claude Code(AI 코딩 에이전트)와
-                PRD.md 한 장과 대화만으로 배포까지 간 과정 정리.
+                피그마 없이 터미널의 Claude Code(AI 코딩 에이전트)와 PRD.md 한 장만으로 웹서비스를 기획·구현·배포하는 과정을 실습.
+                결과물은 연봉을 넣으면 지금 이 순간 번 돈만큼 치킨·피자·떡볶이가 쏟아지는 <strong className="font-bold text-stone-900">‘오늘 번 돈’</strong>.
               </p>
               <div className="pointer-events-auto mt-6 flex w-full max-w-sm flex-col gap-2 sm:flex-row lg:mt-8">
                 <Link
