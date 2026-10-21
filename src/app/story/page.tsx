@@ -150,17 +150,18 @@ const STEPS: Step[] = [
   },
 ];
 
-const ITEMS = [
-  ["chicken", "치킨"],
-  ["pizza", "피자"],
-  ["icecream", "아이스크림"],
-  ["cupramen", "컵라면"],
-  ["coffee", "커피"],
-  ["tteokbokki", "떡볶이"],
-  ["soju", "소주"],
-  ["burger", "햄버거세트"],
-  ["samgak", "삼각김밥"],
-  ["gukbap", "국밥"],
+/** [id, 이름, 카드 너비 대비 이미지 너비(%)] — 면적이 비슷해 보이도록 가로세로 비율로 환산 (삼각김밥 34% 기준) */
+const ITEMS: [string, string, number][] = [
+  ["chicken", "치킨", 35],
+  ["pizza", "피자", 41],
+  ["icecream", "아이스크림", 24],
+  ["cupramen", "컵라면", 27],
+  ["coffee", "커피", 28],
+  ["tteokbokki", "떡볶이", 41],
+  ["soju", "소주", 21],
+  ["burger", "햄버거세트", 38],
+  ["samgak", "삼각김밥", 34],
+  ["gukbap", "국밥", 40],
 ];
 
 const LEARNINGS = [
@@ -271,16 +272,16 @@ export default function StoryPage() {
                   key={i}
                   className="relative pb-14 pl-10 last:pb-0 lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-start lg:gap-10 lg:pb-20"
                 >
-                  {/* 작은 오렌지 점: 제목(배지 아래 첫 줄) 높이의 가운데 */}
-                  <span className="absolute top-[37px] left-[7px] h-2.5 w-2.5 rounded-full bg-accent ring-4 ring-[#fffaf4]" aria-hidden="true" />
+                  {/* 작은 오렌지 점: 배지 높이의 가운데 */}
+                  <span className="absolute top-[5px] left-[7px] h-2.5 w-2.5 rounded-full bg-accent ring-4 ring-[#fffaf4]" aria-hidden="true" />
                   {/* PC에서는 글이 스크롤 동안 따라오도록 sticky */}
                   <div className="lg:sticky lg:top-10">
                     <span className="inline-block rounded-full bg-accent-soft px-2.5 py-0.5 text-xs font-bold text-accent-strong">{step.tag}</span>
                     <h3 className="mt-2 text-xl font-black tracking-tight text-stone-900">{step.title}</h3>
                     <p className="mt-2 text-[15px] leading-relaxed text-stone-600">{step.body}</p>
                     {step.prompt && (
-                      // 터미널 입력처럼: 연한 박스 안에 고정폭 명령 + 터미널 창의 요청 줄과 같은 글꼴(기본 글꼴 13px)
-                      <div className="mt-4 rounded-2xl bg-[#f4ece2] px-4 py-3.5 ring-1 ring-[#e8dccd]">
+                      // 터미널 입력처럼: 테두리 박스 안에 고정폭 명령 + 터미널 창의 요청 줄과 같은 글꼴(기본 글꼴 13px)
+                      <div className="mt-4 rounded-2xl px-4 py-3.5 ring-1 ring-[#e8dccd]">
                         <span className="font-mono text-[13px]">
                           <span className="text-accent">$</span> <span className="text-stone-800">claude</span>{" "}
                           <span className="text-stone-500">--request</span>
@@ -334,15 +335,17 @@ export default function StoryPage() {
           {/* 10종 3D */}
           <Section eyebrow="RESULT" title="하나씩 다듬은 3D 아이템 10종" desc="썸네일 이미지를 옆에 두고 형태·색감·재질을 하나씩 맞춘 결과.">
             <ul className="grid grid-cols-2 gap-2 sm:grid-cols-5 lg:gap-3">
-              {ITEMS.map(([id, name]) => (
+              {ITEMS.map(([id, name, width]) => (
                 // 서비스 아이템 카드와 같은 유리 카드: 반투명 흰 바탕 + 블러 + 이미지 뒤 은은한 색 번짐
                 <li
                   key={id}
                   className="relative overflow-hidden rounded-[28px] bg-white/45 shadow-[0_4px_14px_-6px_rgba(60,40,20,0.16)] ring-1 ring-white/80 backdrop-blur-xl"
                 >
                   <span className="pointer-events-none absolute top-[18%] left-1/2 h-2/3 w-2/3 -translate-x-1/2 rounded-full bg-[#f3e2cf]/80 blur-2xl" aria-hidden="true" />
-                  <img src={`/story/pv-${id}.png`} alt={`${name} 3D 모델`} loading="lazy" className="relative -my-[8%] aspect-square w-full scale-[1.15] object-contain" />
-                  <div className="relative -mt-2 flex items-center justify-center gap-1.5 pb-4">
+                  <div className="relative flex aspect-[3/2] items-center justify-center pt-3">
+                    <img src={`/story/pv-${id}.png`} alt={`${name} 3D 모델`} loading="lazy" style={{ width: `${width}%` }} className="h-auto" />
+                  </div>
+                  <div className="relative flex items-center justify-center gap-1.5 pt-2 pb-4">
                     <img src={`/items/${id}.png`} alt="" width={20} height={20} className="h-5 w-5 object-contain" />
                     <span className="text-sm font-bold text-stone-800">{name}</span>
                   </div>
