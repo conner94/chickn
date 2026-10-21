@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { IntroBackdrop } from "./IntroBackdrop";
 import { GridItem, ItemGrid } from "./ItemGrid";
+import { ScrollTopButton } from "./ScrollTopButton";
 
 // 이 프로젝트를 만든 과정을 소개하는 정적 페이지 (/story). 스크린샷은 public/story/ 에 있다.
 const title = "MCP · AI Agent 스터디 결과 보고서 · 오늘 번 돈";
@@ -451,6 +452,7 @@ export default function StoryPage() {
           </p>
         </div>
       </footer>
+      <ScrollTopButton />
     </main>
   );
 }
