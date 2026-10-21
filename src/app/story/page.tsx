@@ -446,8 +446,8 @@ export default function StoryPage() {
       <footer className="bg-[#f3f4f5] pb-[max(2rem,env(safe-area-inset-bottom))]">
         <div className="mx-auto flex w-full max-w-3xl flex-col items-center gap-4 px-4 py-10 text-center lg:max-w-[1200px] lg:flex-row lg:justify-between lg:px-8 lg:text-left">
           <div className="flex items-center gap-2.5">
-            {/* 서비스 파비콘(app/icon.svg)의 흑백 버전 */}
-            <img src="/icon.svg" alt="" width={28} height={28} className="h-7 w-7 grayscale" />
+            {/* 서비스 로고(코인, app/icon.png와 같은 이미지)의 흑백 버전 */}
+            <img src="/brand/logo.png" alt="" width={28} height={28} className="h-7 w-7 object-contain grayscale" />
             <span className="text-[15px] font-black text-neutral-800">오늘 번 돈</span>
           </div>
           <p className="flex flex-wrap items-center justify-center gap-x-2 text-sm font-medium text-neutral-500">
