@@ -20,11 +20,11 @@ const STATS = [
 ];
 
 const WORKFLOW = [
+  { title: "터미널의 Claude Code", body: "디자인 툴 대신 터미널에서 Claude Code를 실행하고, 대화로 코드 작성부터 배포까지 진행." },
   { title: "글로 쓴 기획서", body: "화면을 그리는 대신 기능·계산식·기술 스택을 문서로 정리해 전달." },
-  { title: "단계마다 멈추기", body: "4단계로 나눠 한 단계가 끝날 때마다 직접 확인하고 다음 단계로." },
-  { title: "AI가 직접 보고 확인", body: "에이전트가 헤드리스 크롬으로 화면을 찍어 보고 스스로 수정." },
+  { title: "단계마다 멈추고 확인", body: "4단계로 나눠 단계마다 직접 확인. 에이전트도 헤드리스 크롬으로 화면을 찍어 스스로 점검." },
   { title: "말로 고치기", body: "“카드를 더 크게”, “두 배로 키워줘”처럼 대화로 디자인을 다듬음." },
-];
+]
 
 type Shot = { src: string; alt: string; caption?: string; phone?: boolean };
 type Step = {
@@ -35,10 +35,31 @@ type Step = {
   prompt?: string[];
   /** 작업 순서를 칩으로 보여줄 때 */
   flow?: string[];
+  /** 스크린샷 대신 보여줄 터미널 화면. "$ "로 시작하면 명령, 그 외는 출력 */
+  terminal?: string[];
   shots: Shot[];
 };
 
 const STEPS: Step[] = [
+  {
+    tag: "세팅",
+    title: "터미널에서 Claude Code, GitHub·Vercel 연결",
+    body: "터미널에서 Claude Code를 실행해 프로젝트를 시작하고, GitHub 저장소와 Vercel을 연결. 이후 main에 푸시할 때마다 같은 주소로 자동 배포.",
+    prompt: [
+      "GitHub 저장소를 만들고 Vercel 프로젝트에 연결해줘.",
+      "main에 푸시하면 같은 주소로 자동 배포되게 해줘.",
+    ],
+    flow: ["터미널", "claude 실행", "GitHub 저장소", "Vercel 연결", "push = 자동 배포"],
+    terminal: [
+      "$ cd ~/Desktop/Project/261008_Chickn",
+      "$ claude",
+      "> 연봉을 입력하면 오늘 번 돈을 초 단위로 계산해줘…",
+      "✓ 22 tests passed · build ok",
+      "$ git push",
+      "✓ Vercel  Deployment has completed",
+    ],
+    shots: [],
+  },
   {
     tag: "초안",
     title: "유리 상자 속에 각진 치킨",
@@ -119,20 +140,6 @@ const STEPS: Step[] = [
     ],
   },
   {
-    tag: "해프닝",
-    title: "너무 커져 버린 피자",
-    body: "“어이없어서 웃기게” 키워 달라는 요청에 화면을 덮는 피자가 등장. 절반으로 줄이고, 토핑이 위를 보며 쌓이도록 방향까지 조정.",
-    prompt: [
-      "피자는 치킨보다 훨씬, 웃길 만큼 크게 키워줘.",
-      "(너무 커서) 지금의 50%로 줄이고, 디테일은 치킨 수준으로 다듬어줘.",
-      "토핑이 위를 향해 쌓이도록 방향을 바꿔줘.",
-    ],
-    shots: [
-      { src: "/story/09-pizza-giant.jpg", alt: "화면을 덮을 만큼 커진 피자", caption: "너무 큼", phone: true },
-      { src: "/story/10-pizza-final.jpg", alt: "알맞은 크기로 쌓인 피자", caption: "최종", phone: true },
-    ],
-  },
-  {
     tag: "마무리",
     title: "입력 시트, 확인 다이얼로그, 공유 이미지",
     body: "월급 입력 시트에 “서버로 보내지 않음” 안내를 추가하고, 저장 버튼과 나가기 확인 창을 정리. 공유용 OG 이미지는 아이템이 하늘에서 떨어지는 장면으로.",
@@ -144,18 +151,8 @@ const STEPS: Step[] = [
     shots: [
       { src: "/story/14-live-sheet.jpg", alt: "월급 입력 바텀시트", caption: "입력 시트", phone: true },
       { src: "/story/11-sheet-confirm.jpg", alt: "저장하지 않고 나갈까요 확인 창", caption: "확인 창", phone: true },
+      { src: "/story/12-og.jpg", alt: "아이템이 떨어지는 공유 이미지", caption: "공유 시 보이는 OG 이미지" },
     ],
-  },
-  {
-    tag: "배포",
-    title: "GitHub에 올리면 자동으로 배포",
-    body: "로컬 폴더를 git 저장소로 만들어 GitHub에 올리고, 기존 Vercel 프로젝트에 연결. main에 푸시하면 같은 주소로 자동 배포.",
-    prompt: [
-      "GitHub 저장소를 만들고 기존 Vercel 프로젝트에 연결해줘.",
-      "main에 푸시하면 같은 주소로 자동 배포되게 해줘.",
-    ],
-    flow: ["git init", "GitHub 저장소", "Vercel 연결", "push = 자동 배포"],
-    shots: [{ src: "/story/12-og.jpg", alt: "아이템이 떨어지는 공유 이미지", caption: "공유 시 보이는 OG 이미지" }],
   },
 ];
 
@@ -204,58 +201,61 @@ function ShotImage({ shot }: { shot: Shot }) {
 export default function StoryPage() {
   return (
     <main className="w-full break-keep">
-      {/* 밴드 1: 인트로 (페이지 기본 크림 배경) */}
-      <div className="mx-auto w-full max-w-3xl px-4 lg:max-w-[1200px] lg:px-8 pt-[max(2.5rem,env(safe-area-inset-top))] pb-16 lg:pt-20 lg:pb-28">
-        {/* 히어로 */}
-        <header className="flex flex-col items-center text-center lg:flex-row lg:justify-between lg:gap-16 lg:text-left">
-          <div className="flex flex-col items-center lg:max-w-[560px] lg:items-start">
-            <span className="rounded-full bg-accent-soft px-3 py-1 text-xs font-bold text-accent-strong">
-              MCP · AI 에이전트 스터디
-            </span>
-            <h1 className="mt-5 text-[34px] leading-[1.2] font-black tracking-tight text-stone-900 sm:text-5xl lg:text-6xl">
-              피그마 없이,
-              <br />
-              대화로 만든 <span className="text-accent">오늘 번 돈</span>
-            </h1>
-            <p className="mt-4 max-w-md text-[15px] leading-relaxed text-stone-600 lg:mt-6 lg:max-w-none lg:text-lg">
-              연봉을 넣으면 지금 이 순간 번 돈만큼 치킨·피자·떡볶이가 쏟아지는 웹서비스. 디자인 툴 없이 AI 코딩 에이전트와 대화만으로 기획서 한 장에서
-              배포까지 간 과정 정리.
-            </p>
-            <div className="mt-6 flex w-full max-w-sm gap-2 lg:mt-8">
-              <Link
-                href="/"
-                className="flex flex-[1.4] items-center justify-center rounded-2xl bg-stone-900 py-3.5 text-[15px] font-bold text-white shadow-md transition hover:bg-stone-800 active:scale-[0.97]"
-              >
-                서비스 써보기
-              </Link>
-              <a
-                href="https://github.com/conner94/chickn"
-                target="_blank"
-                rel="noreferrer"
-                className="flex flex-1 items-center justify-center rounded-2xl bg-white/90 py-3.5 text-[15px] font-bold text-stone-800 shadow-sm ring-1 ring-stone-900/5 transition hover:bg-white active:scale-[0.97]"
-              >
-                GitHub
-              </a>
-            </div>
-          </div>
-          <div className="mt-10 w-full max-w-[300px] lg:mt-0 lg:shrink-0">
-            <ShotImage shot={{ src: "/story/13-live.jpg", alt: "완성된 오늘 번 돈 화면", phone: true }} />
-          </div>
-        </header>
-
-        {/* 숫자 */}
-        <section className="mt-12 grid grid-cols-2 gap-2 sm:grid-cols-4 lg:mt-20 lg:gap-3">
-          {STATS.map((s) => (
-            // 흰 버튼과 겹치지 않게 코랄 톤 카드
-            <div key={s.label} className="rounded-3xl bg-accent-soft px-3 py-5 text-center ring-1 ring-accent/15">
-              <div className="text-3xl font-black text-stone-900 tabular-nums">
-                {s.value}
-                <span className="ml-0.5 text-base font-bold text-accent">{s.unit}</span>
+      {/* 밴드 1: 인트로 (라테 샌드) */}
+      <div className="bg-[radial-gradient(120%_80%_at_50%_0%,#f7eadb_0%,#efdcc5_100%)]">
+        <div className="mx-auto w-full max-w-3xl px-4 lg:max-w-[1200px] lg:px-8 pt-[max(2.5rem,env(safe-area-inset-top))] pb-16 lg:pt-20 lg:pb-28">
+          {/* 히어로 */}
+          <header className="flex flex-col items-center text-center lg:flex-row lg:justify-between lg:gap-16 lg:text-left">
+            <div className="flex flex-col items-center lg:max-w-[560px] lg:items-start">
+              <span className="rounded-full bg-white/70 px-3 py-1 text-xs font-bold text-accent-strong">
+                MCP · AI 에이전트 스터디
+              </span>
+              <h1 className="mt-5 text-[34px] leading-[1.2] font-black tracking-tight text-stone-900 sm:text-5xl lg:text-6xl">
+                피그마 없이,
+                <br />
+                대화로 만든 <span className="text-accent">오늘 번 돈</span>
+              </h1>
+              <p className="mt-4 max-w-md text-[15px] leading-relaxed text-stone-600 lg:mt-6 lg:max-w-none lg:text-lg">
+                연봉을 넣으면 지금 이 순간 번 돈만큼 치킨·피자·떡볶이가 쏟아지는 웹서비스. 디자인 툴 없이 터미널에서 Claude Code(AI 코딩 에이전트)와
+                대화만으로 기획서 한 장에서 배포까지 간 과정 정리.
+              </p>
+              <div className="mt-6 flex w-full max-w-sm gap-2 lg:mt-8">
+                <Link
+                  href="/"
+                  className="flex flex-[1.4] items-center justify-center rounded-2xl bg-stone-900 py-3.5 text-[15px] font-bold text-white shadow-md transition hover:bg-stone-800 active:scale-[0.97]"
+                >
+                  서비스 써보기
+                </Link>
+                <a
+                  href="https://github.com/conner94/chickn"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex flex-1 items-center justify-center gap-2 rounded-2xl bg-white/90 py-3.5 text-[15px] font-bold text-stone-800 shadow-sm ring-1 ring-stone-900/5 transition hover:bg-white active:scale-[0.97]"
+                >
+                  <GitHubMark className="h-[18px] w-[18px]" />
+                  GitHub
+                </a>
               </div>
-              <div className="mt-1 text-xs font-medium text-stone-500">{s.label}</div>
             </div>
-          ))}
-        </section>
+            <div className="mt-10 w-full max-w-[300px] lg:mt-0 lg:shrink-0">
+              <ShotImage shot={{ src: "/story/13-live.jpg", alt: "완성된 오늘 번 돈 화면", phone: true }} />
+            </div>
+          </header>
+
+          {/* 숫자 */}
+          <section className="mt-12 grid grid-cols-2 gap-2 sm:grid-cols-4 lg:mt-20 lg:gap-3">
+            {STATS.map((s) => (
+              // 흰 버튼과 겹치지 않게 배경과 같은 샌드 톤 카드
+              <div key={s.label} className="rounded-3xl bg-[#e9d3b8]/55 px-3 py-5 text-center ring-1 ring-[#d9bf9f]/40">
+                <div className="text-3xl font-black text-stone-900 tabular-nums">
+                  {s.value}
+                  <span className="ml-0.5 text-base font-bold text-stone-500">{s.unit}</span>
+                </div>
+                <div className="mt-1 text-xs font-medium text-stone-600">{s.label}</div>
+              </div>
+            ))}
+          </section>
+        </div>
       </div>
 
       {/* 밴드 2: 만든 과정 (아주 연한 베이지) */}
@@ -323,13 +323,25 @@ export default function StoryPage() {
                       </ol>
                     )}
                   </div>
-                  {/* 폰 화면은 나란히, 가로로 긴 비교 이미지는 위아래로 */}
-                  <div className={`mt-5 flex items-start gap-3 lg:mt-0 ${step.shots.every((s) => s.phone) ? "" : "flex-col"}`}>
-                    {step.shots.map((shot) => (
-                      <div key={shot.src} className="flex w-full flex-1 justify-center">
-                        <ShotImage shot={shot} />
+                  <div className="mt-5 flex flex-col gap-4 lg:mt-0">
+                    {step.terminal && <Terminal lines={step.terminal} />}
+                    {/* 폰 화면은 나란히, 가로로 긴 이미지는 그 아래로 */}
+                    {step.shots.some((s) => s.phone) && (
+                      <div className="flex items-start gap-3">
+                        {step.shots
+                          .filter((s) => s.phone)
+                          .map((shot) => (
+                            <div key={shot.src} className="flex w-full flex-1 justify-center">
+                              <ShotImage shot={shot} />
+                            </div>
+                          ))}
                       </div>
-                    ))}
+                    )}
+                    {step.shots
+                      .filter((s) => !s.phone)
+                      .map((shot) => (
+                        <ShotImage key={shot.src} shot={shot} />
+                      ))}
                   </div>
                 </li>
               ))}
@@ -422,5 +434,44 @@ function Section({
       </div>
       <div className="mt-6 lg:mt-0">{children}</div>
     </section>
+  );
+}
+
+/** 터미널 창 모양. "$ "로 시작하는 줄은 명령, "✓"는 성공 출력 */
+function Terminal({ lines }: { lines: string[] }) {
+  return (
+    <div className="overflow-hidden rounded-2xl bg-[#1f1b18] shadow-[0_12px_32px_-12px_rgba(120,72,30,0.35)] ring-1 ring-stone-900/10">
+      <div className="flex items-center gap-1.5 border-b border-white/5 px-4 py-3" aria-hidden="true">
+        <span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
+        <span className="h-3 w-3 rounded-full bg-[#febc2e]" />
+        <span className="h-3 w-3 rounded-full bg-[#28c840]" />
+        <span className="ml-2 text-xs font-medium text-stone-500">Terminal — claude</span>
+      </div>
+      <pre className="overflow-x-auto px-4 py-4 font-mono text-[13px] leading-7 whitespace-pre-wrap text-stone-300">
+        {lines.map((line) => (
+          <div key={line}>
+            {line.startsWith("$ ") ? (
+              <>
+                <span className="text-accent-light">$</span> <span className="text-white">{line.slice(2)}</span>
+              </>
+            ) : line.startsWith("✓") ? (
+              <span className="text-emerald-400">{line}</span>
+            ) : (
+              // 한글 요청 줄은 고정폭 글꼴에서 자간이 벌어져 기본 글꼴로
+              <span className="font-sans text-stone-400">{line}</span>
+            )}
+          </div>
+        ))}
+      </pre>
+    </div>
+  );
+}
+
+/** GitHub 로고 (Octicons mark-github) */
+function GitHubMark({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" className={className}>
+      <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" />
+    </svg>
   );
 }
