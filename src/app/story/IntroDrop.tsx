@@ -71,9 +71,15 @@ function useStage(floorInsetPx: number): Bounds {
 const HIT_FORCE = 9;
 const HIT_RADIUS = 3;
 
+/** 마우스를 올리고 움직일 때 살짝 밀어내는 힘·반경, 같은 아이템을 다시 밀기까지 쉬는 시간(ms) */
+const NUDGE_FORCE = 2.4;
+const NUDGE_RADIUS = 1.1;
+const NUDGE_COOLDOWN_MS = 180;
+
 /**
  * 오브젝트에 마우스를 올리면 클릭 가능한 커서로, 누르면(터치 포함) 그 지점을 중심으로 주변 아이템을 튕겨 낸다.
  * 가까울수록 세게, 바깥쪽 + 위쪽으로.
+ * 마우스는 올려서 움직이기만 해도 커서가 지나가는 방향으로 살짝 튀며 밀린다 (터치는 누를 때만).
  */
 function Hittable({ children }: { children: React.ReactNode }) {
   const { world } = useRapier();
@@ -86,6 +92,37 @@ function Hittable({ children }: { children: React.ReactNode }) {
     });
   });
   const setCursor = (c: string) => (gl.domElement.style.cursor = c);
+  const lastPoint = useRef<THREE.Vector3 | null>(null);
+  const lastNudge = useRef(new Map<number, number>());
+  const nudge = useCallback(
+    (e: ThreeEvent<PointerEvent>) => {
+      if (e.pointerType !== "mouse") return;
+      e.stopPropagation();
+      const p = e.point;
+      const prev = lastPoint.current;
+      lastPoint.current = p.clone();
+      // 커서가 움직인 방향(없으면 바깥쪽)으로 민다
+      const mx = prev ? p.x - prev.x : 0;
+      const mz = prev ? p.z - prev.z : 0;
+      const mLen = Math.hypot(mx, mz);
+      const now = performance.now();
+      world.forEachRigidBody((body) => {
+        if (!body.isDynamic()) return;
+        const t = body.translation();
+        const dx = t.x - p.x, dy = t.y - p.y, dz = t.z - p.z;
+        const dist = Math.hypot(dx, dy, dz);
+        if (dist > NUDGE_RADIUS) return;
+        if (now - (lastNudge.current.get(body.handle) ?? 0) < NUDGE_COOLDOWN_MS) return;
+        lastNudge.current.set(body.handle, now);
+        const f = (1 - dist / NUDGE_RADIUS) * NUDGE_FORCE * body.mass();
+        const len = Math.max(Math.hypot(dx, dz), 0.3);
+        const [ux, uz] = mLen > 0.01 ? [mx / mLen, mz / mLen] : [dx / len, dz / len];
+        body.applyImpulse({ x: ux * f, y: f * 0.7, z: uz * f * 0.5 }, true);
+        body.applyTorqueImpulse({ x: (Math.random() - 0.5) * f * 0.1, y: (Math.random() - 0.5) * f * 0.1, z: -ux * f * 0.15 }, true);
+      });
+    },
+    [world],
+  );
   const hit = useCallback(
     (e: ThreeEvent<PointerEvent>) => {
       e.stopPropagation();
@@ -108,11 +145,15 @@ function Hittable({ children }: { children: React.ReactNode }) {
     <group
       ref={groupRef}
       onPointerDown={hit}
+      onPointerMove={nudge}
       onPointerOver={(e) => {
         e.stopPropagation();
         setCursor("pointer");
       }}
-      onPointerOut={() => setCursor("")}
+      onPointerOut={() => {
+        setCursor("");
+        lastPoint.current = null;
+      }}
     >
       {children}
     </group>

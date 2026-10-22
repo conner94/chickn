@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { IntroBackdrop } from "./IntroBackdrop";
 import { GridItem, ItemGrid } from "./ItemGrid";
+import { FloatingCta } from "./FloatingCta";
 import { ScrollTopButton } from "./ScrollTopButton";
 
 // 이 프로젝트를 만든 과정을 소개하는 정적 페이지 (/story). 스크린샷은 public/story/ 에 있다.
@@ -236,7 +237,7 @@ export default function StoryPage() {
   return (
     <main className="w-full break-keep">
       {/* 밴드 1: 인트로 (라테 샌드) */}
-      <div className="relative overflow-hidden bg-[radial-gradient(120%_80%_at_50%_0%,#f7eadb_0%,#efdcc5_100%)]">
+      <div data-hide-floating-cta className="relative overflow-hidden bg-[radial-gradient(120%_80%_at_50%_0%,#f7eadb_0%,#efdcc5_100%)]">
         {/* 배경 3D: 아이템이 쏟아져 아래쪽 빈 공간에 쌓인다 */}
         <IntroBackdrop />
         <div className="pointer-events-none relative mx-auto w-full max-w-3xl px-4 pt-[max(2.5rem,env(safe-area-inset-top))] pb-40 lg:max-w-[1200px] lg:px-8 lg:pt-20 lg:pb-44">
@@ -414,7 +415,7 @@ export default function StoryPage() {
           </Section>
 
           {/* 마무리: PC에서는 왼쪽 문구 / 오른쪽 버튼인 가로 배너 */}
-          <section className="mt-16 flex flex-col items-center gap-4 text-center lg:mt-28 lg:flex-row lg:justify-between lg:rounded-[32px] lg:bg-white/[0.06] lg:px-12 lg:py-10 lg:text-left lg:ring-1 lg:ring-white/10">
+          <section data-hide-floating-cta className="mt-16 flex flex-col items-center gap-4 text-center lg:mt-28 lg:flex-row lg:justify-between lg:rounded-[32px] lg:bg-white/[0.06] lg:px-12 lg:py-10 lg:text-left lg:ring-1 lg:ring-white/10">
             <div>
               <p className="text-lg font-ko font-black text-white lg:text-3xl lg:tracking-tight">오늘 나는 얼마나 벌었을까?</p>
               <p className="mt-2 hidden text-stone-400 lg:block">연봉만 넣으면 지금 이 순간까지 번 돈만큼 쏟아지는 치킨.</p>
@@ -431,11 +432,11 @@ export default function StoryPage() {
       </div>
 
       {/* 푸터 */}
-      <footer className="bg-[#edeeef] pb-[max(2rem,env(safe-area-inset-bottom))]">
+      <footer data-hide-floating-cta className="bg-[#edeeef] pb-[max(2rem,env(safe-area-inset-bottom))]">
         <div className="mx-auto flex w-full max-w-3xl flex-col items-center gap-4 px-4 py-10 text-center lg:max-w-[1200px] lg:flex-row lg:justify-between lg:px-8 lg:text-left">
           <div className="flex items-center gap-1">
-            {/* 서비스 로고(치킨 닭다리, 파비콘과 같은 이미지)의 흑백 버전 */}
-            <img src="/items/chicken.png" alt="" width={42} height={42} className="h-[42px] w-[42px] object-contain grayscale" />
+            {/* 서비스 로고(치킨 닭다리, 파비콘과 같은 이미지) */}
+            <img src="/items/chicken.png" alt="" width={42} height={42} className="h-[42px] w-[42px] object-contain" />
             <span className="text-[22px] font-ko font-black text-neutral-800">오늘 번 돈</span>
           </div>
           <p className="flex flex-wrap items-center justify-center gap-x-2 text-sm font-medium text-neutral-500">
@@ -447,6 +448,7 @@ export default function StoryPage() {
           </p>
         </div>
       </footer>
+      <FloatingCta />
       <ScrollTopButton />
     </main>
   );
