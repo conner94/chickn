@@ -113,7 +113,7 @@ function SheetBody({
             ["시급", hourlyWage(draft)],
             ["하루치", dailyWage(draft)],
           ].map(([label, value]) => (
-            <div key={label} className="rounded-2xl bg-white px-2 py-3 shadow-sm">
+            <div key={label} className="rounded-2xl bg-white/45 px-2 py-3 shadow-[0_4px_14px_-6px_rgba(60,40,20,0.16)] ring-1 ring-white/80 backdrop-blur-xl">
               <dt className="text-xs text-stone-500">{label}</dt>
               <dd className="mt-1 text-[13px] font-semibold whitespace-nowrap tabular-nums">{formatWon(value as number)}원</dd>
             </div>
