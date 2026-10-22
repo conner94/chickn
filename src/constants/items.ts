@@ -27,9 +27,9 @@ export interface Item {
 
 // 카드 줄에 보이는 순서 그대로. 같은 가격끼리 붙지 않게 섞어 둔다 (끝 → 처음으로 이어지는 루프 포함)
 const RAW_ITEMS = [
-  { id: "icecream", name: "아이스크림", unit: "개", price: 1500, category: "small", shape: "round" },
+  { id: "icecream", name: "아이스크림", unit: "개", price: 1000, category: "small", shape: "round" },
   { id: "cupramen", name: "컵라면", unit: "개", price: 1800, category: "small", shape: "cup" },
-  { id: "coffee", name: "커피", unit: "잔", price: 4500, category: "meal", shape: "cup" },
+  { id: "coffee", name: "커피", unit: "잔", price: 3000, category: "meal", shape: "cup" },
   { id: "tteokbokki", name: "떡볶이", unit: "그릇", price: 5000, category: "meal", shape: "round" },
   { id: "pizza", name: "피자", unit: "판", price: 25000, category: "treat", shape: "box" },
   { id: "soju", name: "소주", unit: "병", price: 5000, category: "meal", shape: "cup" },
