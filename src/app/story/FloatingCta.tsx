@@ -31,7 +31,7 @@ export function FloatingCta() {
       }`}
     >
       <img src="/items/chicken.png" alt="" width={22} height={22} className="h-[22px] w-[22px] object-contain" />
-      서비스 써보기
+      <span className="pr-1">서비스 써보기</span>
     </Link>
   );
 }

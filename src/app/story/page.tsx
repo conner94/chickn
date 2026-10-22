@@ -262,7 +262,7 @@ export default function StoryPage() {
                   className="flex items-center gap-1 sm:flex-[1.4] justify-center rounded-2xl bg-stone-900 py-3.5 text-[15px] font-bold text-white shadow-md transition hover:bg-stone-800 active:scale-[0.97]"
                 >
                   <img src="/items/chicken.png" alt="" width={22} height={22} className="h-[22px] w-[22px] object-contain" />
-                  서비스 써보기
+                  <span className="pr-1">서비스 써보기</span>
                 </Link>
                 <a
                   href="https://github.com/conner94/chickn"
