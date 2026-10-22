@@ -26,7 +26,7 @@ export function FloatingCta() {
       href="/"
       aria-hidden={!visible}
       tabIndex={visible ? undefined : -1}
-      className={`fixed bottom-[max(1rem,env(safe-area-inset-bottom))] left-1/2 z-40 flex -translate-x-1/2 w-[min(280px,calc(100%-9rem))] items-center justify-center gap-1 rounded-full bg-stone-900 py-3.5 text-[15px] font-bold whitespace-nowrap text-white shadow-[0_8px_20px_-6px_rgba(0,0,0,0.45)] ring-1 ring-white/20 transition duration-300 hover:bg-stone-800 active:scale-[0.97] lg:bottom-8 ${
+      className={`fixed bottom-[max(1rem,env(safe-area-inset-bottom))] left-1/2 z-40 flex -translate-x-1/2 w-[200px] lg:w-[216px] items-center justify-center gap-1 rounded-full bg-stone-900 py-3.5 text-[15px] font-bold whitespace-nowrap text-white shadow-[0_8px_20px_-6px_rgba(0,0,0,0.45)] ring-1 ring-white/20 transition duration-300 hover:bg-stone-800 active:scale-[0.97] lg:bottom-8 ${
         visible ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-3 opacity-0"
       }`}
     >
