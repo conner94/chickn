@@ -134,7 +134,7 @@ export function EarningsApp() {
 
         <div className="mt-auto flex flex-col items-center gap-3 px-4 pb-[max(1rem,env(safe-area-inset-bottom))]">
           {/* 선택한 아이템 요약 */}
-          <div className="flex max-w-full items-center gap-2 rounded-full bg-white/85 py-1.5 pr-4 pl-1.5 shadow-sm ring-1 ring-stone-900/5 backdrop-blur">
+          <div className="flex max-w-full items-center gap-2 rounded-full bg-white/45 py-1.5 pr-4 pl-1.5 shadow-[0_4px_14px_-6px_rgba(60,40,20,0.16)] ring-1 ring-white/80 backdrop-blur-xl">
             <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent-soft" aria-hidden="true">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={item.image} alt="" width={26} height={26} className="h-[26px] w-[26px] object-contain" />
