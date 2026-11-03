@@ -50,6 +50,19 @@
   padding: calc(env(safe-area-inset-top) + 24px) var(--gutter) 20px;
   animation: fade 0.9s var(--ease) both;
 }
+.heading {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.author {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: var(--sub);
+}
 .title {
   margin: 0;
   font-size: clamp(28px, 3.4vw, 48px);
@@ -84,11 +97,6 @@
   font-size: 14px;
   font-weight: 400;
   line-height: 1;
-}
-.clock dd {
-  font-family: var(--mono);
-  font-size: 13px;
-  font-variant-numeric: tabular-nums;
 }
 
 /* ───────── 패널 레일 ───────── */
@@ -249,7 +257,8 @@
 .kicker {
   margin: 0 0 10px;
   font: 400 10px/1.3 var(--mono);
-  letter-spacing: 0.16em;
+  /* 한글 소제목(토이 프로젝트 등)이 벌어져 보이지 않게 자간을 좁게 */
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--violet);
 }

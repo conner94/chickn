@@ -10,7 +10,6 @@ import s from "./goals.module.css";
  */
 export function GoalsHub() {
   const [active, setActive] = useState<number | null>(null);
-  const [clock, setClock] = useState("");
 
   // 블랙 배경을 html/body까지 칠해 iOS 바운스·노치 영역에서 앱의 크림색이 비치지 않게 한다
   useEffect(() => {
@@ -39,34 +38,24 @@ export function GoalsHub() {
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
-  // 상단 우측 서울 시각 (작업 기록 같은 디테일)
-  useEffect(() => {
-    const fmt = new Intl.DateTimeFormat("en-GB", { timeZone: "Asia/Seoul", hour: "2-digit", minute: "2-digit", second: "2-digit" });
-    const tick = () => setClock(fmt.format(new Date()));
-    tick();
-    const id = setInterval(tick, 1000);
-    return () => clearInterval(id);
-  }, []);
-
   return (
     <div className={s.page}>
       <Crosshair />
       <header className={s.top}>
-        <h1 className={s.title}>
-          <span>2026</span> 골세팅 결과보고
-        </h1>
+        <div className={s.heading}>
+          <p className={s.author}>Conner · 윤승학</p>
+          <h1 className={s.title}>
+            <span>2026</span> 골세팅 결과보고
+          </h1>
+        </div>
         <dl className={s.meta}>
+          <div>
+            <dt>Company</dt>
+            <dd>PTKOREA</dd>
+          </div>
           <div>
             <dt>Dept.</dt>
             <dd>D2-GXG-T5</dd>
-          </div>
-          <div>
-            <dt>Name</dt>
-            <dd>Conner 윤승학</dd>
-          </div>
-          <div className={s.clock}>
-            <dt>Seoul</dt>
-            <dd>{clock}</dd>
           </div>
         </dl>
       </header>
@@ -89,7 +78,7 @@ export function GoalsHub() {
         <span className={s.hint}>
           <kbd>1</kbd>–<kbd>4</kbd> 키로도 선택
         </span>
-        <span className={s.org}>PTKOREA</span>
+        <span className={s.org}>© 2026</span>
       </footer>
     </div>
   );
