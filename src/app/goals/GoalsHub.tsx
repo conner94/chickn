@@ -50,12 +50,12 @@ export function GoalsHub() {
         </div>
         <dl className={s.meta}>
           <div>
-            <dt>Company</dt>
-            <dd>PTKOREA</dd>
-          </div>
-          <div>
             <dt>Dept.</dt>
             <dd>D2-GXG-T5</dd>
+          </div>
+          <div>
+            <dt>Company</dt>
+            <dd>PTKOREA</dd>
           </div>
         </dl>
       </header>
